@@ -1,85 +1,10 @@
 using System;
 using System.Collections.Generic;
+using SistemaCostoViaje.EL;
+using SistemaCostoViaje.VL;
 
-namespace SistemaCostoViaje.Models
+namespace SistemaCostoViaje.BL
 {
-    /// <summary>
-    /// Entidad: Viaje
-    /// Representa un viaje con información de origen, destino y costo
-    /// </summary>
-    public class Viaje
-    {
-        public int Id { get; set; }
-        public required string Origen { get; set; }
-        public required string Destino { get; set; }
-        public decimal DistanciaKm { get; set; }
-        public decimal CostoBase { get; set; }
-        public DateTime FechaViaje { get; set; }
-        public int IdConductor { get; set; }
-        public ViajeEstado Estado { get; set; }
-    }
-
-    public enum ViajeEstado
-    {
-        Pendiente = 1,
-        EnCurso = 2,
-        Completado = 3,
-        Cancelado = 4
-    }
-
-    /// <summary>
-    /// Capa de Validación (VL): ViajeValidador
-    /// Responsable de validar la integridad de los datos de entrada
-    /// </summary>
-    public class ViajeValidador
-    {
-        private readonly List<string> _errores;
-
-        public ViajeValidador()
-        {
-            _errores = new List<string>();
-        }
-
-        public bool Validar(Viaje viaje)
-        {
-            _errores.Clear();
-
-            if (viaje == null)
-            {
-                _errores.Add("El viaje no puede ser nulo");
-                return false;
-            }
-
-            if (string.IsNullOrWhiteSpace(viaje.Origen))
-                _errores.Add("El origen es requerido");
-
-            if (string.IsNullOrWhiteSpace(viaje.Destino))
-                _errores.Add("El destino es requerido");
-
-            if (viaje.DistanciaKm <= 0)
-                _errores.Add("La distancia debe ser mayor a 0 km");
-
-            if (viaje.CostoBase < 0)
-                _errores.Add("El costo base no puede ser negativo");
-
-            if (viaje.FechaViaje < DateTime.Now.Date)
-                _errores.Add("La fecha del viaje no puede ser anterior a hoy");
-
-            if (viaje.IdConductor <= 0)
-                _errores.Add("El Id del conductor es inválido");
-
-            if (viaje.Origen.Equals(viaje.Destino, StringComparison.OrdinalIgnoreCase))
-                _errores.Add("El origen y destino no pueden ser iguales");
-
-            return _errores.Count == 0;
-        }
-
-        public List<string> ObtenerErrores()
-        {
-            return new List<string>(_errores);
-        }
-    }
-
     /// <summary>
     /// Capa de Reglas de Negocio (BL): ViajeLógicaNegocio
     /// Responsable de aplicar las reglas de negocio y cálculos
