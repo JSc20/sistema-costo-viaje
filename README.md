@@ -79,9 +79,9 @@ erDiagram
 
     DESTINO {
         INT id PK
+        INT peaje_id FK
         STRING nombre "Ej: Escazú, San Rafael, Atenas"
         DECIMAL km_ida_vuelta
-        DECIMAL peajes_estimados
     }
 
     VIAJE {
@@ -91,12 +91,12 @@ erDiagram
         INT tecnico_id FK
         INT destino_id FK
         INT tipo_combustible_id FK
+        INT peaje_id FK
         DECIMAL km_totales
         DECIMAL horas_estimadas
         DECIMAL costo_combustible
         DECIMAL costo_desgaste_vehiculo
         DECIMAL costo_tiempo_tecnico
-        DECIMAL costo_peajes
         DECIMAL costo_ferry
         DECIMAL costo_hospedaje
         DECIMAL costo_insumos
@@ -109,6 +109,11 @@ erDiagram
         STRING tipo "Desayuno, Almuerzo, Cena"
         DECIMAL monto
     }
+    PEAJE {
+        INT id PK
+        DECiMAL costo
+        STRING nombre "Escazú, San Rafael, Arenas"
+    }
 
     VEHICULO ||--o{ RENDIMIENTO_VEHICULO : "posee"
     VEHICULO ||--o{ MANTENIMIENTO_VEHICULO : "requiere"
@@ -117,6 +122,7 @@ erDiagram
     VEHICULO ||--o{ VIAJE : "es_utilizado_en"
     TECNICO ||--o{ VIAJE : "ejecuta"
     DESTINO ||--o{ VIAJE : "es_ruta_de"
+    DESTINO ||--o{ PEAJE : "incluye"
     TIPO_COMBUSTIBLE ||--o{ VIAJE : "abastece"
 
     VIAJE ||--o{ VIATICO_VIAJE : "incluye"
@@ -126,15 +132,15 @@ erDiagram
 
 ### Fase 1 — Base del sistema ✅
 - [X] Modelo `Viaje` con estados
-- [ ] Validación de datos de entrada
-- [ ] Reglas de negocio (Tentativa:cálculo de costo, hora pico, descuento viaje largo)
-- [ ] Máquina de estados (Pendiente → EnCurso → Completado/Cancelado)
-- [ ] Clase base abstracta para Presenter (MVP)
+- [X] Validación de datos de entrada
+- [X] Reglas de negocio (cálculo de costo, hora pico, descuento viaje largo)
+- [X] Máquina de estados (Pendiente → EnCurso → Completado/Cancelado)
+- [X] Clase base abstracta para Presenter (MVP)
 
 ### Fase 2 — Interfaz de usuario 🚧
 - [ ] Diseñar formulario principal con navegación (menú, toolbar)
 - [ ] Formulario de registro de viaje (origen, destino, distancia, conductor, fecha)
-- [ ] Listado de viajes con filtros
+- [ ] Listado de viajes
 - [ ] Vista de detalle de viaje con desglose de costos
 - [ ] Conexión del Presenter concreto a la Vista
 
@@ -145,6 +151,8 @@ erDiagram
 - [ ] Entidad `TipoCombustible` (CRUD)
 - [ ] Entidad `RendimientoVehiculo` (CRUD)
 - [ ] Entidad `MantenimientoVehiculo` (CRUD)
+- [ ] Entidad `ViaticoViaje` (CRUD)
+- [ ] Entidad `Peaje` (CRUD)
 - [ ] Capa de acceso a datos (DAL) con SQL Server / SQLite
 - [ ] Repositorios genéricos
 
