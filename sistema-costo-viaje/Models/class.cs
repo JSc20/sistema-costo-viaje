@@ -10,8 +10,8 @@ namespace SistemaCostoViaje.Models
     public class Viaje
     {
         public int Id { get; set; }
-        public string Origen { get; set; }
-        public string Destino { get; set; }
+        public required string Origen { get; set; }
+        public required string Destino { get; set; }
         public decimal DistanciaKm { get; set; }
         public decimal CostoBase { get; set; }
         public DateTime FechaViaje { get; set; }
