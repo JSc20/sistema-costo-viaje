@@ -125,11 +125,11 @@ erDiagram
 ## Roadmap
 
 ### Fase 1 — Base del sistema ✅
-- [x] Modelo `Viaje` con estados
-- [x] Validación de datos de entrada
-- [x] Reglas de negocio (cálculo de costo, hora pico, descuento viaje largo)
-- [x] Máquina de estados (Pendiente → EnCurso → Completado/Cancelado)
-- [x] Clase base abstracta para Presenter (MVP)
+- [X] Modelo `Viaje` con estados
+- [ ] Validación de datos de entrada
+- [ ] Reglas de negocio (Tentativa:cálculo de costo, hora pico, descuento viaje largo)
+- [ ] Máquina de estados (Pendiente → EnCurso → Completado/Cancelado)
+- [ ] Clase base abstracta para Presenter (MVP)
 
 ### Fase 2 — Interfaz de usuario 🚧
 - [ ] Diseñar formulario principal con navegación (menú, toolbar)
