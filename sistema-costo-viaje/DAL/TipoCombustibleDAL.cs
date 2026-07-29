@@ -6,20 +6,20 @@ namespace SistemaCostoViaje.DAL
 {
     public class TipoCombustibleDAL
     {
-        private static readonly List<TpoCombustible> _tiposCombustible = new();
+        private static readonly List<TipoCombustible> _tiposCombustible = new();
         private static int _nextId = 1;
 
-        public List<TpoCombustible> ObtenerTodos()
+        public List<TipoCombustible> ObtenerTodos()
         {
             return _tiposCombustible.Select(Clone).ToList();
         }
 
-        public TpoCombustible? ObtenerPorId(int id)
+        public TipoCombustible? ObtenerPorId(int id)
         {
             return Clone(_tiposCombustible.FirstOrDefault(t => t.Id == id));
         }
 
-        public TpoCombustible Crear(TpoCombustible tipoCombustible  )
+        public TipoCombustible Crear(TipoCombustible tipoCombustible  )
         {
             var nuevoTipoCombustible = Clone(tipoCombustible);
             nuevoTipoCombustible.Id = _nextId++;
@@ -27,7 +27,7 @@ namespace SistemaCostoViaje.DAL
             return Clone(nuevoTipoCombustible);
         }
 
-        public TpoCombustible? Actualizar(TpoCombustible tipoCombustible)
+        public TipoCombustible? Actualizar(TipoCombustible tipoCombustible)
         {
             var existente = _tiposCombustible.FirstOrDefault(t => t.Id == tipoCombustible.Id);
             if (existente == null)
@@ -48,12 +48,12 @@ namespace SistemaCostoViaje.DAL
             return _tiposCombustible.Remove(tipoCombustible);
         }
 
-        private static TpoCombustible Clone(TpoCombustible? tipoCombustible)
+        private static TipoCombustible Clone(TipoCombustible? tipoCombustible)
         {
             if (tipoCombustible == null)
                 return null!;
 
-            return new TpoCombustible
+            return new TipoCombustible
             {
                 Id = tipoCombustible.Id,
                 Nombre = tipoCombustible.Nombre,

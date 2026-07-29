@@ -1,6 +1,6 @@
 using System;
 namespace SistemaCostoViaje.EL;
-public class TpoCombustible
+public class TipoCombustible
 {
     public int Id { get; set; }
     public required string Nombre { get; set; }
