@@ -1,11 +1,9 @@
-using System;
-using System.Collections.Generic;
 using SistemaCostoViaje.EL;
 
 namespace SistemaCostoViaje.VL
 {
     /// <summary>
-    /// Capa de ValidaciÃ³n (VL): TipoCombustibleValidador
+    /// Capa de Validación (VL): TipoCombustibleValidador
     /// Responsable de validar la integridad de los datos de entrada
     /// </summary>
     public class TipoCombustibleValidador
