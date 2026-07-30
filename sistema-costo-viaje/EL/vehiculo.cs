@@ -7,4 +7,9 @@ public class Vehiculo
     public required string Modelo { get; set; }
     public int Año { get; set; }
     public decimal CostoPorKm { get; set; }
+    public decimal ValorActual { get; set; }
+    public decimal ValorFuturo { get; set; }
+    public int KmRestantesUso { get; set; }
+    public int KmAnuales { get; set; }
+    public decimal CostosFijosAnuales { get; set; }
 }
