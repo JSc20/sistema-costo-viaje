@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using SistemaCostoViaje.DAL;
 using SistemaCostoViaje.EL;
 using SistemaCostoViaje.VL;
 
@@ -8,6 +9,7 @@ namespace SistemaCostoViaje.BL
 {
     public class ViajeLogicaNegocio
     {
+        private readonly ViajeDAL _viajeDAL;
         private readonly ViajeValidador _validador;
         private readonly VehiculoLogicaNegocio _vehiculoBL;
         private readonly TecnicoLogicaNegocio _tecnicoBL;
@@ -16,6 +18,7 @@ namespace SistemaCostoViaje.BL
 
         public ViajeLogicaNegocio()
         {
+            _viajeDAL = new ViajeDAL();
             _validador = new ViajeValidador();
             _vehiculoBL = new VehiculoLogicaNegocio();
             _tecnicoBL = new TecnicoLogicaNegocio();
@@ -23,21 +26,66 @@ namespace SistemaCostoViaje.BL
             _rendimientoBL = new RendimientoVehiculoLogicaNegocio();
         }
 
-        public (bool Exitoso, string Mensaje, decimal CostoFinal) CrearViaje(Viaje viaje)
+        public List<Viaje> ObtenerTodos() => _viajeDAL.ObtenerTodos();
+
+        public Viaje? ObtenerPorId(int id)
         {
+            if (id <= 0)
+                throw new ArgumentException("El ID debe ser mayor que cero", nameof(id));
+            return _viajeDAL.ObtenerPorId(id);
+        }
+
+        public Viaje Crear(Viaje viaje)
+        {
+            if (viaje == null)
+                throw new ArgumentNullException(nameof(viaje));
+
             if (!_validador.Validar(viaje))
             {
-                var errores = string.Join(", ", _validador.ObtenerErrores());
-                return (false, $"Validación fallida: {errores}", 0);
+                var errores = string.Join("; ", _validador.ObtenerErrores());
+                throw new ArgumentException($"Datos del viaje inválidos: {errores}");
             }
 
+            viaje.CostoBase = CalcularCostoViaje(viaje);
+            viaje.Estado = ViajeEstado.Pendiente;
+
+            return _viajeDAL.Crear(viaje);
+        }
+
+        public Viaje Actualizar(Viaje viaje)
+        {
+            if (viaje == null)
+                throw new ArgumentNullException(nameof(viaje));
+
+            if (viaje.Id <= 0)
+                throw new ArgumentException("El ID del viaje es inválido", nameof(viaje.Id));
+
+            if (!_validador.Validar(viaje))
+            {
+                var errores = string.Join("; ", _validador.ObtenerErrores());
+                throw new ArgumentException($"Datos del viaje inválidos: {errores}");
+            }
+
+            var actualizado = _viajeDAL.Actualizar(viaje);
+            if (actualizado == null)
+                throw new InvalidOperationException("No se encontró el viaje para actualizar");
+
+            return actualizado;
+        }
+
+        public bool Eliminar(int id)
+        {
+            if (id <= 0)
+                throw new ArgumentException("El ID debe ser mayor que cero", nameof(id));
+            return _viajeDAL.Eliminar(id);
+        }
+
+        public (bool Exitoso, string Mensaje, decimal CostoFinal) CrearViaje(Viaje viaje)
+        {
             try
             {
-                decimal costoFinal = CalcularCostoViaje(viaje);
-                viaje.CostoBase = costoFinal;
-                viaje.Estado = ViajeEstado.Pendiente;
-
-                return (true, "Viaje creado exitosamente", costoFinal);
+                var creado = Crear(viaje);
+                return (true, "Viaje creado exitosamente", creado.CostoBase);
             }
             catch (Exception ex)
             {
