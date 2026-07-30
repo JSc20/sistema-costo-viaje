@@ -1,32 +1,28 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using SistemaCostoViaje.EL;
 using SistemaCostoViaje.VL;
 
 namespace SistemaCostoViaje.BL
 {
-    /// <summary>
-    /// Capa de Reglas de Negocio (BL): ViajeLógicaNegocio
-    /// Responsable de aplicar las reglas de negocio y cálculos
-    /// </summary>
-    public class ViajeLógicaNegocio
+    public class ViajeLogicaNegocio
     {
         private readonly ViajeValidador _validador;
+        private readonly VehiculoLogicaNegocio _vehiculoBL;
+        private readonly TecnicoLogicaNegocio _tecnicoBL;
+        private readonly ViaticoViajeLogicaNegocio _viaticoBL;
+        private readonly RendimientoVehiculoLogicaNegocio _rendimientoBL;
 
-        // Constantes de reglas de negocio
-        private const decimal PRECIO_POR_KM = 2.5m;
-        private const decimal RECARGO_HORA_PICO = 1.25m; // 25% de recargo
-        private const decimal DESCUENTO_VIAJE_LARGO = 0.90m; // 10% descuento para viajes > 50 km
-        private const decimal DISTANCIA_VIAJE_LARGO = 50m;
-
-        public ViajeLógicaNegocio()
+        public ViajeLogicaNegocio()
         {
             _validador = new ViajeValidador();
+            _vehiculoBL = new VehiculoLogicaNegocio();
+            _tecnicoBL = new TecnicoLogicaNegocio();
+            _viaticoBL = new ViaticoViajeLogicaNegocio();
+            _rendimientoBL = new RendimientoVehiculoLogicaNegocio();
         }
 
-        /// <summary>
-        /// Procesa la creación de un nuevo viaje con validación y cálculos
-        /// </summary>
         public (bool Exitoso, string Mensaje, decimal CostoFinal) CrearViaje(Viaje viaje)
         {
             if (!_validador.Validar(viaje))
@@ -49,40 +45,43 @@ namespace SistemaCostoViaje.BL
             }
         }
 
-        /// <summary>
-        /// Calcula el costo total del viaje aplicando todas las reglas de negocio
-        /// </summary>
+        // Costo Total Viaje = Costo Vehículo + Costo Tiempo Técnico + Viáticos
+        //                    + Peajes + Ferry + Hospedaje + Insumos
         private decimal CalcularCostoViaje(Viaje viaje)
         {
-            decimal costo = viaje.DistanciaKm * PRECIO_POR_KM;
-
-            // Aplicar recargo en hora pico (7-9 AM y 5-7 PM)
-            if (EsHoraPico(viaje.FechaViaje))
+            // 1. Costo del Vehículo (Desgaste)
+            decimal costoVehiculo = 0;
+            var rendimientos = _rendimientoBL.ObtenerPorVehiculoId(viaje.VehiculoId);
+            var rendimiento = rendimientos.FirstOrDefault();
+            if (rendimiento != null)
             {
-                costo *= RECARGO_HORA_PICO;
+                costoVehiculo = _vehiculoBL.CalcularCostoVehiculoTotal(
+                    viaje.VehiculoId,
+                    rendimiento.tipo_combustible_id,
+                    rendimiento.tipo_entorno,
+                    viaje.DistanciaKm);
             }
 
-            // Aplicar descuento para viajes largos
-            if (viaje.DistanciaKm > DISTANCIA_VIAJE_LARGO)
+            // 2. Costo Tiempo Técnico
+            decimal costoTecnico = 0;
+            var tecnico = _tecnicoBL.ObtenerPorId(viaje.TecnicoId);
+            if (tecnico != null)
             {
-                costo *= DESCUENTO_VIAJE_LARGO;
+                costoTecnico = _tecnicoBL.CalcularCostoTiempoTecnico(
+                    tecnico, viaje.HorasOrdinarias, viaje.HorasExtra);
             }
 
-            return Math.Round(costo, 2);
+            // 3. Viáticos (suma de alimentos)
+            var viaticos = _viaticoBL.ObtenerPorViajeId(viaje.Id);
+            decimal totalViaticos = viaticos.Sum(v => v.Monto);
+
+            // 4. Peajes, Ferry, Hospedaje, Insumos
+            decimal total = costoVehiculo + costoTecnico + totalViaticos +
+                           viaje.CostoFerry + viaje.CostoHospedaje + viaje.CostoInsumos;
+
+            return Math.Round(total, 2);
         }
 
-        /// <summary>
-        /// Verifica si la hora del viaje corresponde a hora pico
-        /// </summary>
-        private bool EsHoraPico(DateTime fecha)
-        {
-            int hora = fecha.Hour;
-            return (hora >= 7 && hora < 9) || (hora >= 17 && hora < 19);
-        }
-
-        /// <summary>
-        /// Actualiza el estado del viaje
-        /// </summary>
         public bool ActualizarEstado(Viaje viaje, ViajeEstado nuevoEstado)
         {
             if (viaje == null)
@@ -96,7 +95,7 @@ namespace SistemaCostoViaje.BL
                 { ViajeEstado.Cancelado, new List<ViajeEstado>() }
             };
 
-            if (transicionesValidas.ContainsKey(viaje.Estado) && 
+            if (transicionesValidas.ContainsKey(viaje.Estado) &&
                 transicionesValidas[viaje.Estado].Contains(nuevoEstado))
             {
                 viaje.Estado = nuevoEstado;
