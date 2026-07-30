@@ -15,16 +15,12 @@ namespace SistemaCostoViaje.BL
             _validador = new ViaticoViajeValidador();
         }
 
-        public List<ViaticoViaje> ObtenerTodos()
-        {
-            return _viaticoDAL.ObtenerTodos();
-        }
+        public List<ViaticoViaje> ObtenerTodos() => _viaticoDAL.ObtenerTodos();
 
         public ViaticoViaje? ObtenerPorId(int id)
         {
             if (id <= 0)
                 throw new ArgumentException("El ID debe ser mayor que cero", nameof(id));
-
             return _viaticoDAL.ObtenerPorId(id);
         }
 
@@ -32,7 +28,6 @@ namespace SistemaCostoViaje.BL
         {
             if (viajeId <= 0)
                 throw new ArgumentException("El ID del viaje debe ser mayor que cero", nameof(viajeId));
-
             return _viaticoDAL.ObtenerPorViajeId(viajeId);
         }
 
@@ -75,8 +70,16 @@ namespace SistemaCostoViaje.BL
         {
             if (id <= 0)
                 throw new ArgumentException("El ID debe ser mayor que cero", nameof(id));
-
             return _viaticoDAL.Eliminar(id);
+        }
+
+        public decimal CalcularTotalViaticosPorViaje(int viajeId)
+        {
+            if (viajeId <= 0)
+                throw new ArgumentException("El ID del viaje debe ser mayor que cero", nameof(viajeId));
+
+            var viaticos = _viaticoDAL.ObtenerPorViajeId(viajeId);
+            return Math.Round(viaticos.Sum(v => v.Monto), 2);
         }
     }
 }
