@@ -3,45 +3,28 @@ using SistemaCostoViaje.EL;
 
 namespace SistemaCostoViaje.BL
 {
-    /// <summary>
-    /// Clase de lógica de negocio para Vehículos
-    /// </summary>
     public class VehiculoLogicaNegocio
     {
         private readonly VehiculoDAL _vehiculoDAL;
+        private readonly RendimientoVehiculoLogicaNegocio _rendimientoBL;
+        private readonly MantenimientoVehiculoLogicaNegocio _mantenimientoBL;
 
         public VehiculoLogicaNegocio()
         {
             _vehiculoDAL = new VehiculoDAL();
+            _rendimientoBL = new RendimientoVehiculoLogicaNegocio();
+            _mantenimientoBL = new MantenimientoVehiculoLogicaNegocio();
         }
 
-        /// <summary>
-        /// Obtiene todos los vehículos
-        /// </summary>
-        /// <returns>Lista de vehículos</returns>
-        public List<Vehiculo> ObtenerTodos()
-        {
-            return _vehiculoDAL.ObtenerTodos();
-        }
+        public List<Vehiculo> ObtenerTodos() => _vehiculoDAL.ObtenerTodos();
 
-        /// <summary>
-        /// Obtiene un vehículo por ID
-        /// </summary>
-        /// <param name="id">ID del vehículo</param>
-        /// <returns>Vehículo encontrado</returns>
         public Vehiculo? ObtenerPorId(int id)
         {
             if (id <= 0)
                 throw new ArgumentException("El ID debe ser mayor que cero", nameof(id));
-
             return _vehiculoDAL.ObtenerPorId(id);
         }
 
-        /// <summary>
-        /// Crea un nuevo vehículo
-        /// </summary>
-        /// <param name="vehiculo">Datos del vehículo a crear</param>
-        /// <returns>Vehículo creado</returns>
         public Vehiculo Crear(Vehiculo vehiculo)
         {
             if (vehiculo == null)
@@ -62,11 +45,6 @@ namespace SistemaCostoViaje.BL
             return _vehiculoDAL.Crear(vehiculo);
         }
 
-        /// <summary>
-        /// Actualiza un vehículo existente
-        /// </summary>
-        /// <param name="vehiculo">Datos del vehículo a actualizar</param>
-        /// <returns>Vehículo actualizado</returns>
         public Vehiculo Actualizar(Vehiculo vehiculo)
         {
             if (vehiculo == null)
@@ -81,6 +59,9 @@ namespace SistemaCostoViaje.BL
             if (string.IsNullOrWhiteSpace(vehiculo.Modelo))
                 throw new ArgumentException("El modelo es requerido", nameof(vehiculo.Modelo));
 
+            if (vehiculo.Año <= 1900 || vehiculo.Año > DateTime.Now.Year + 1)
+                throw new ArgumentException("El año del vehículo no es válido", nameof(vehiculo.Año));
+
             if (vehiculo.CostoPorKm <= 0)
                 throw new ArgumentException("El costo por kilómetro debe ser mayor que cero", nameof(vehiculo.CostoPorKm));
 
@@ -91,31 +72,65 @@ namespace SistemaCostoViaje.BL
             return actualizado;
         }
 
-        /// <summary>
-        /// Elimina un vehículo
-        /// </summary>
-        /// <param name="id">ID del vehículo a eliminar</param>
-        /// <returns>True si se eliminó correctamente</returns>
         public bool Eliminar(int id)
         {
             if (id <= 0)
                 throw new ArgumentException("El ID debe ser mayor que cero", nameof(id));
-
             return _vehiculoDAL.Eliminar(id);
         }
 
-        /// <summary>
-        /// Calcula el costo operacional del vehículo
-        /// </summary>
-        /// <param name="vehiculoId">ID del vehículo</param>
-        /// <returns>Costo operacional</returns>
+        // ========================================================
+        // Costo Real del Vehículo por Kilómetro
+        // ========================================================
+
+        // Costo Real por Km = Combustible + Mantenimiento + Depreciación + Costos Fijos
+        public decimal CalcularCostoRealPorKm(int vehiculoId, int tipoCombustibleId, string? tipoEntorno)
+        {
+            var vehiculo = _vehiculoDAL.ObtenerPorId(vehiculoId);
+            if (vehiculo == null)
+                throw new InvalidOperationException("Vehículo no encontrado");
+
+            // A. Combustible por Km = Precio por Litro / Rendimiento (Km/L)
+            var rendimientos = _rendimientoBL.ObtenerPorVehiculoId(vehiculoId);
+            var rendimiento = rendimientos.FirstOrDefault(r =>
+                r.tipo_combustible_id == tipoCombustibleId &&
+                (tipoEntorno == null || r.tipo_entorno == tipoEntorno));
+            decimal costoCombustible = rendimiento?.costo_por_km ?? 0;
+
+            // B. Mantenimiento por Km = Suma de (Costo / Intervalo)
+            var mantenimientos = _mantenimientoBL.ObtenerPorVehiculoId(vehiculoId);
+            decimal costoMantenimiento = mantenimientos.Sum(m => m.CostoPorKm);
+
+            // C. Depreciación por Km = (ValorActual - ValorFuturo) / KmRestantesUso
+            decimal costoDepreciacion = 0;
+            if (vehiculo.KmRestantesUso > 0)
+            {
+                costoDepreciacion = Math.Round(
+                    (vehiculo.ValorActual - vehiculo.ValorFuturo) / vehiculo.KmRestantesUso, 2);
+            }
+
+            // D. Costos Fijos por Km = CostosFijosAnuales / KmAnuales
+            decimal costoFijo = 0;
+            if (vehiculo.KmAnuales > 0)
+            {
+                costoFijo = Math.Round(vehiculo.CostosFijosAnuales / vehiculo.KmAnuales, 2);
+            }
+
+            return Math.Round(costoCombustible + costoMantenimiento + costoDepreciacion + costoFijo, 2);
+        }
+
+        // Costo Vehículo Total = Km Totales * Costo Real por Km
+        public decimal CalcularCostoVehiculoTotal(int vehiculoId, int tipoCombustibleId,
+            string? tipoEntorno, decimal kmTotales)
+        {
+            decimal costoPorKm = CalcularCostoRealPorKm(vehiculoId, tipoCombustibleId, tipoEntorno);
+            return Math.Round(kmTotales * costoPorKm, 2);
+        }
+
+        // Mantener compatibilidad con código existente
         public decimal CalcularCostoOperacional(int vehiculoId)
         {
-            // TODO: Sugerencia - Obtener datos del vehículo
-            // TODO: Sugerencia - Calcular consumo de combustible
-            // TODO: Sugerencia - Incluir mantenimiento y depreciación
-            // TODO: Sugerencia - Implementar lógica de cálculo
-            throw new NotImplementedException();
+            return CalcularCostoRealPorKm(vehiculoId, 1, null);
         }
     }
 }
