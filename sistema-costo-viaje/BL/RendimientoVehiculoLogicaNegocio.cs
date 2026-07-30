@@ -7,24 +7,22 @@ namespace SistemaCostoViaje.BL
     public class RendimientoVehiculoLogicaNegocio
     {
         private readonly RendimientoVehiculoDAL _rendimientoDAL;
+        private readonly TipoCombustibleDAL _tipoCombustibleDAL;
         private readonly RendimientoVehiculoValidador _validador;
 
         public RendimientoVehiculoLogicaNegocio()
         {
             _rendimientoDAL = new RendimientoVehiculoDAL();
+            _tipoCombustibleDAL = new TipoCombustibleDAL();
             _validador = new RendimientoVehiculoValidador();
         }
 
-        public List<RendimientoVehiculo> ObtenerTodos()
-        {
-            return _rendimientoDAL.ObtenerTodos();
-        }
+        public List<RendimientoVehiculo> ObtenerTodos() => _rendimientoDAL.ObtenerTodos();
 
         public RendimientoVehiculo? ObtenerPorId(int id)
         {
             if (id <= 0)
                 throw new ArgumentException("El ID debe ser mayor que cero", nameof(id));
-
             return _rendimientoDAL.ObtenerPorId(id);
         }
 
@@ -32,7 +30,6 @@ namespace SistemaCostoViaje.BL
         {
             if (vehiculoId <= 0)
                 throw new ArgumentException("El ID del vehículo debe ser mayor que cero", nameof(vehiculoId));
-
             return _rendimientoDAL.ObtenerPorVehiculoId(vehiculoId);
         }
 
@@ -46,6 +43,12 @@ namespace SistemaCostoViaje.BL
                 var errores = string.Join("; ", _validador.ObtenerErrores());
                 throw new ArgumentException($"Datos del rendimiento de vehículo inválidos: {errores}");
             }
+
+            var combustible = _tipoCombustibleDAL.ObtenerPorId(rendimiento.tipo_combustible_id);
+            if (combustible == null)
+                throw new InvalidOperationException("El tipo de combustible especificado no existe");
+
+            rendimiento.costo_por_km = CalcularCostoPorKm(combustible.CostoPorLitro, rendimiento.km_por_litro);
 
             return _rendimientoDAL.Crear(rendimiento);
         }
@@ -64,6 +67,12 @@ namespace SistemaCostoViaje.BL
                 throw new ArgumentException($"Datos del rendimiento de vehículo inválidos: {errores}");
             }
 
+            var combustible = _tipoCombustibleDAL.ObtenerPorId(rendimiento.tipo_combustible_id);
+            if (combustible == null)
+                throw new InvalidOperationException("El tipo de combustible especificado no existe");
+
+            rendimiento.costo_por_km = CalcularCostoPorKm(combustible.CostoPorLitro, rendimiento.km_por_litro);
+
             var actualizado = _rendimientoDAL.Actualizar(rendimiento);
             if (actualizado == null)
                 throw new InvalidOperationException("No se encontró el rendimiento de vehículo para actualizar");
@@ -75,8 +84,19 @@ namespace SistemaCostoViaje.BL
         {
             if (id <= 0)
                 throw new ArgumentException("El ID debe ser mayor que cero", nameof(id));
-
             return _rendimientoDAL.Eliminar(id);
+        }
+
+        // Combustible por Km = Precio por Litro / Rendimiento (Km/L)
+        public decimal CalcularCostoPorKm(decimal precioPorLitro, decimal kmPorLitro)
+        {
+            if (precioPorLitro < 0)
+                throw new ArgumentException("El precio por litro no puede ser negativo", nameof(precioPorLitro));
+
+            if (kmPorLitro <= 0)
+                throw new ArgumentException("El rendimiento (km/L) debe ser mayor que cero", nameof(kmPorLitro));
+
+            return Math.Round(precioPorLitro / kmPorLitro, 2);
         }
     }
 }
