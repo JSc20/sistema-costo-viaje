@@ -25,13 +25,29 @@ sistema-costo-viaje/
 | Componente | Estado |
 |---|---|
 | `EL/Viaje.cs` — Entidad Viaje con estado (Pendiente, EnCurso, Completado, Cancelado) | ✅ |
-| `VL/ViajeValidador.cs` — Validación de datos de entrada | ✅ |
+| `EL/Vehiculo.cs` — Entidad Vehículo | ✅ |
+| `EL/TipoCombustible.cs` — Entidad TipoCombustible | ✅ |
+| `EL/RendimientoVehiculo.cs` — Entidad RendimientoVehiculo | ✅ |
+| `EL/MantenimientoVehiculo.cs` — Entidad MantenimientoVehiculo (incompleta, propiedades sin `public`) | 🚧 |
+| `VL/ViajeValidador.cs` — Validación de datos de entrada (Viaje) | ✅ |
+| `VL/VehiculoValidador.cs` — Validación de Vehículo | ✅ |
+| `VL/TipoCombustible.cs` — Validación de TipoCombustible | ✅ |
+| `VL/RendimientoVehiculoValidador.cs` — Validación de RendimientoVehiculo | ✅ |
 | `BL/ViajeLogicaNegocio.cs` — Cálculo de costos, reglas de hora pico, descuentos, máquina de estados | ✅ |
+| `BL/VehiculoLogicaNegocio.cs` — Lógica de negocio de Vehículo con CRUD | ✅ |
+| `DAL/ViajeDAL.cs` — Repositorio en memoria para Viaje | ✅ |
+| `DAL/VehiculoDAL.cs` — Repositorio en memoria para Vehículo (con datos semilla) | ✅ |
+| `DAL/TipoCombustibleDAL.cs` — Repositorio en memoria para TipoCombustible | ✅ |
 | `Presenter/puente.cs` — Clase base abstracta `PresenterBase` | ✅ |
 | `View/Form1.cs` — Formulario principal (vacío, sin controles) | 🚧 |
-| Capa de persistencia (DAL/Repositorio) | ❌ |
 | Presenter concreto (ej. `ViajePresenter`) | ❌ |
-| CRUD de entidades (Vehículo, Técnico, Destino, Combustible) | ❌ |
+| Entidades restantes (Técnico, Destino, ViaticoViaje, Peaje) | ❌ |
+| DAL de RendimientoVehiculo y MantenimientoVehiculo | ❌ |
+| BL de TipoCombustible, RendimientoVehiculo y MantenimientoVehiculo | ❌ |
+| Persistencia a base de datos (SQL Server / SQLite) | ❌ |
+| Formularios de catálogos (Vehículo, Combustible, etc.) | ❌ |
+| Reportes y exportación | ❌ |
+| Pruebas unitarias | ❌ |
 
 ## Modelo de datos (Roadmap)
 
@@ -136,6 +152,7 @@ erDiagram
 - [X] Reglas de negocio (cálculo de costo, hora pico, descuento viaje largo)
 - [X] Máquina de estados (Pendiente → EnCurso → Completado/Cancelado)
 - [X] Clase base abstracta para Presenter (MVP)
+- [X] Repositorio en memoria para Viaje (`ViajeDAL`)
 
 ### Fase 2 — Interfaz de usuario 🚧
 - [ ] Diseñar formulario principal con navegación (menú, toolbar)
@@ -144,17 +161,17 @@ erDiagram
 - [ ] Vista de detalle de viaje con desglose de costos
 - [ ] Conexión del Presenter concreto a la Vista
 
-### Fase 3 — Catálogos y persistencia
-- [ ] Entidad `Vehículo` (CRUD)
-- [ ] Entidad `Técnico` (CRUD)
-- [ ] Entidad `Destino` (CRUD)
-- [ ] Entidad `TipoCombustible` (CRUD)
-- [ ] Entidad `RendimientoVehiculo` (CRUD)
-- [ ] Entidad `MantenimientoVehiculo` (CRUD)
-- [ ] Entidad `ViaticoViaje` (CRUD)
-- [ ] Entidad `Peaje` (CRUD)
-- [ ] Capa de acceso a datos (DAL) con SQL Server / SQLite
-- [ ] Repositorios genéricos
+### Fase 3 — Catálogos y persistencia ✅/🚧
+- [X] Entidad `Vehículo` (EL, VL, BL, DAL — completo)
+- [X] Entidad `TipoCombustible` (EL, VL, DAL — falta BL)
+- [X] Entidad `RendimientoVehiculo` (EL, VL — falta DAL y BL)
+- [ ] Entidad `MantenimientoVehiculo` (EL incompleto — propiedades privadas)
+- [ ] Entidad `Técnico`
+- [ ] Entidad `Destino`
+- [ ] Entidad `ViaticoViaje`
+- [ ] Entidad `Peaje`
+- [ ] Persistencia a base de datos (SQL Server / SQLite)
+- [ ] Pruebas unitarias
 
 ### Fase 4 — Cálculo avanzado de costos
 - [ ] Cálculo de costo de combustible según rendimiento vehículo
