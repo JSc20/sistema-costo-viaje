@@ -2,8 +2,11 @@
   "ExpandedNodes": [
     "",
     "\\.github",
-    "\\.github\\workflows"
+    "\\.github\\ISSUE_TEMPLATE",
+    "\\.github\\workflows",
+    "\\.opencode",
+    "\\.opencode\\plans"
   ],
-  "SelectedNode": "\\.github\\workflows\\ci-pruebas.yml",
+  "SelectedNode": "\\.github\\ISSUE_TEMPLATE\\bug_report.md",
   "PreviewInSolutionExplorer": false
 }
