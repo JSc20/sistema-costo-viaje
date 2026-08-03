@@ -28,7 +28,7 @@ sistema-costo-viaje/
 | `EL/Vehiculo.cs` — Entidad Vehículo | ✅ |
 | `EL/TipoCombustible.cs` — Entidad TipoCombustible | ✅ |
 | `EL/RendimientoVehiculo.cs` — Entidad RendimientoVehiculo | ✅ |
-| `EL/MantenimientoVehiculo.cs` — Entidad MantenimientoVehiculo (incompleta, propiedades sin `public`) | 🚧 |
+| `EL/MantenimientoVehiculo.cs` — Entidad MantenimientoVehiculo | ✅ |
 | `VL/ViajeValidador.cs` — Validación de datos de entrada (Viaje) | ✅ |
 | `VL/VehiculoValidador.cs` — Validación de Vehículo | ✅ |
 | `VL/TipoCombustible.cs` — Validación de TipoCombustible | ✅ |
@@ -40,10 +40,10 @@ sistema-costo-viaje/
 | `DAL/TipoCombustibleDAL.cs` — Repositorio en memoria para TipoCombustible | ✅ |
 | `Presenter/puente.cs` — Clase base abstracta `PresenterBase` | ✅ |
 | `View/Form1.cs` — Formulario principal (vacío, sin controles) | 🚧 |
-| Presenter concreto (ej. `ViajePresenter`) | ❌ |
-| Entidades restantes (Técnico, Destino, ViaticoViaje, Peaje) | ❌ |
-| DAL de RendimientoVehiculo y MantenimientoVehiculo | ❌ |
-| BL de TipoCombustible, RendimientoVehiculo y MantenimientoVehiculo | ❌ |
+| Presenter concreto (ej. `ViajePresenter`) | ✅ |
+| Entidades restantes (Técnico, Destino, ViaticoViaje, Peaje) | ✅ |
+| DAL de RendimientoVehiculo y MantenimientoVehiculo | ✅ |
+| BL de TipoCombustible, RendimientoVehiculo y MantenimientoVehiculo | ✅ |
 | Persistencia a base de datos (SQL Server / SQLite) | ❌ |
 | Formularios de catálogos (Vehículo, Combustible, etc.) | ❌ |
 | Reportes y exportación | ❌ |
