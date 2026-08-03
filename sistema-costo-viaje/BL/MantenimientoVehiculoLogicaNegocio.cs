@@ -15,16 +15,12 @@ namespace SistemaCostoViaje.BL
             _validador = new MantenimientoVehiculoValidador();
         }
 
-        public List<MantenimientoVehiculo> ObtenerTodos()
-        {
-            return _mantenimientoDAL.ObtenerTodos();
-        }
+        public List<MantenimientoVehiculo> ObtenerTodos() => _mantenimientoDAL.ObtenerTodos();
 
         public MantenimientoVehiculo? ObtenerPorId(int id)
         {
             if (id <= 0)
                 throw new ArgumentException("El ID debe ser mayor que cero", nameof(id));
-
             return _mantenimientoDAL.ObtenerPorId(id);
         }
 
@@ -32,7 +28,6 @@ namespace SistemaCostoViaje.BL
         {
             if (vehiculoId <= 0)
                 throw new ArgumentException("El ID del vehículo debe ser mayor que cero", nameof(vehiculoId));
-
             return _mantenimientoDAL.ObtenerPorVehiculoId(vehiculoId);
         }
 
@@ -46,6 +41,8 @@ namespace SistemaCostoViaje.BL
                 var errores = string.Join("; ", _validador.ObtenerErrores());
                 throw new ArgumentException($"Datos de mantenimiento inválidos: {errores}");
             }
+
+            mantenimiento.CostoPorKm = CalcularCostoPorKm(mantenimiento.CostoTotal, mantenimiento.KmIntervalo);
 
             return _mantenimientoDAL.Crear(mantenimiento);
         }
@@ -64,6 +61,8 @@ namespace SistemaCostoViaje.BL
                 throw new ArgumentException($"Datos de mantenimiento inválidos: {errores}");
             }
 
+            mantenimiento.CostoPorKm = CalcularCostoPorKm(mantenimiento.CostoTotal, mantenimiento.KmIntervalo);
+
             var actualizado = _mantenimientoDAL.Actualizar(mantenimiento);
             if (actualizado == null)
                 throw new InvalidOperationException("No se encontró el mantenimiento para actualizar");
@@ -75,8 +74,19 @@ namespace SistemaCostoViaje.BL
         {
             if (id <= 0)
                 throw new ArgumentException("El ID debe ser mayor que cero", nameof(id));
-
             return _mantenimientoDAL.Eliminar(id);
+        }
+
+        // Costo Mantenimiento por Km = Costo del Mantenimiento / Km de Intervalo
+        public decimal CalcularCostoPorKm(decimal costoTotal, int kmIntervalo)
+        {
+            if (costoTotal < 0)
+                throw new ArgumentException("El costo total no puede ser negativo", nameof(costoTotal));
+
+            if (kmIntervalo <= 0)
+                throw new ArgumentException("El km de intervalo debe ser mayor que cero", nameof(kmIntervalo));
+
+            return Math.Round(costoTotal / kmIntervalo, 2);
         }
     }
 }
