@@ -30,40 +30,41 @@
         {
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
-            button2 = new Button();
+            DateTimePickerViaje = new DateTimePicker();
+            BtnGuardarViaje = new Button();
             label9 = new Label();
             label8 = new Label();
-            dataGridView2 = new DataGridView();
-            dataGridView1 = new DataGridView();
-            TextBoxFerriViaje = new TextBox();
+            DgvDesglosePrecioSoloDelCombustible = new DataGridView();
+            DgvDesglosePrecioTotal = new DataGridView();
+            textBox1 = new TextBox();
             CheckListViaticoViaje = new CheckedListBox();
-            CheckListPeajeViaje = new CheckedListBox();
             ComboBoxCombustibleViaje = new ComboBox();
             ComboBoxDestinoViaje = new ComboBox();
-            ComboBoxVehículoViaje = new ComboBox();
-            label6 = new Label();
             label7 = new Label();
+            ComboBoxVehículoViaje = new ComboBox();
             label5 = new Label();
             label4 = new Label();
             label3 = new Label();
             label2 = new Label();
             label1 = new Label();
             tabPage2 = new TabPage();
-            button5 = new Button();
-            button1 = new Button();
+            BtnEliminarViaje = new Button();
+            BtnEditarViaje = new Button();
+            BtnExportarRegistro = new Button();
             label12 = new Label();
             label11 = new Label();
-            dataGridView4 = new DataGridView();
-            dataGridView3 = new DataGridView();
-            checkedListBox3 = new CheckedListBox();
+            DgvDesglosePrecioSoloDelCombustibleGuardado = new DataGridView();
+            DgvDesglosePrecioTotalGuardados = new DataGridView();
+            CheckListBoxViaje = new CheckedListBox();
             label10 = new Label();
+            DateTimePickerViajes = new DateTimePicker();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView2).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)DgvDesglosePrecioSoloDelCombustible).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)DgvDesglosePrecioTotal).BeginInit();
             tabPage2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView4).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridView3).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)DgvDesglosePrecioSoloDelCombustibleGuardado).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)DgvDesglosePrecioTotalGuardados).BeginInit();
             SuspendLayout();
             // 
             // tabControl1
@@ -79,19 +80,19 @@
             // tabPage1
             // 
             tabPage1.BackColor = Color.FromArgb(168, 168, 168);
-            tabPage1.Controls.Add(button2);
+            tabPage1.Controls.Add(DateTimePickerViajes);
+            tabPage1.Controls.Add(DateTimePickerViaje);
+            tabPage1.Controls.Add(BtnGuardarViaje);
             tabPage1.Controls.Add(label9);
             tabPage1.Controls.Add(label8);
-            tabPage1.Controls.Add(dataGridView2);
-            tabPage1.Controls.Add(dataGridView1);
-            tabPage1.Controls.Add(TextBoxFerriViaje);
+            tabPage1.Controls.Add(DgvDesglosePrecioSoloDelCombustible);
+            tabPage1.Controls.Add(DgvDesglosePrecioTotal);
+            tabPage1.Controls.Add(textBox1);
             tabPage1.Controls.Add(CheckListViaticoViaje);
-            tabPage1.Controls.Add(CheckListPeajeViaje);
             tabPage1.Controls.Add(ComboBoxCombustibleViaje);
             tabPage1.Controls.Add(ComboBoxDestinoViaje);
-            tabPage1.Controls.Add(ComboBoxVehículoViaje);
-            tabPage1.Controls.Add(label6);
             tabPage1.Controls.Add(label7);
+            tabPage1.Controls.Add(ComboBoxVehículoViaje);
             tabPage1.Controls.Add(label5);
             tabPage1.Controls.Add(label4);
             tabPage1.Controls.Add(label3);
@@ -105,15 +106,23 @@
             tabPage1.Text = "Crear Viaje";
             tabPage1.Click += tabPage1_Click;
             // 
-            // button2
+            // DateTimePickerViaje
             // 
-            button2.BackColor = Color.FromArgb(97, 97, 96);
-            button2.Location = new Point(933, 494);
-            button2.Name = "button2";
-            button2.Size = new Size(195, 35);
-            button2.TabIndex = 8;
-            button2.Text = "Guardar viaje";
-            button2.UseVisualStyleBackColor = false;
+            DateTimePickerViaje.Format = DateTimePickerFormat.Short;
+            DateTimePickerViaje.Location = new Point(58, -115);
+            DateTimePickerViaje.Name = "DateTimePickerViaje";
+            DateTimePickerViaje.Size = new Size(95, 23);
+            DateTimePickerViaje.TabIndex = 9;
+            // 
+            // BtnGuardarViaje
+            // 
+            BtnGuardarViaje.BackColor = Color.FromArgb(97, 97, 96);
+            BtnGuardarViaje.Location = new Point(933, 494);
+            BtnGuardarViaje.Name = "BtnGuardarViaje";
+            BtnGuardarViaje.Size = new Size(195, 35);
+            BtnGuardarViaje.TabIndex = 8;
+            BtnGuardarViaje.Text = "Guardar viaje";
+            BtnGuardarViaje.UseVisualStyleBackColor = false;
             // 
             // label9
             // 
@@ -135,52 +144,42 @@
             label8.Text = "Desglose de precio úniamente combustible:";
             label8.Click += label8_Click;
             // 
-            // dataGridView2
+            // DgvDesglosePrecioSoloDelCombustible
             // 
-            dataGridView2.BackgroundColor = SystemColors.ButtonHighlight;
-            dataGridView2.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView2.Location = new Point(586, 32);
-            dataGridView2.Name = "dataGridView2";
-            dataGridView2.Size = new Size(540, 210);
-            dataGridView2.TabIndex = 5;
+            DgvDesglosePrecioSoloDelCombustible.BackgroundColor = SystemColors.ButtonHighlight;
+            DgvDesglosePrecioSoloDelCombustible.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            DgvDesglosePrecioSoloDelCombustible.Location = new Point(586, 32);
+            DgvDesglosePrecioSoloDelCombustible.Name = "DgvDesglosePrecioSoloDelCombustible";
+            DgvDesglosePrecioSoloDelCombustible.Size = new Size(540, 210);
+            DgvDesglosePrecioSoloDelCombustible.TabIndex = 5;
             // 
-            // dataGridView1
+            // DgvDesglosePrecioTotal
             // 
-            dataGridView1.BackgroundColor = SystemColors.ButtonHighlight;
-            dataGridView1.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView1.Location = new Point(586, 263);
-            dataGridView1.Name = "dataGridView1";
-            dataGridView1.Size = new Size(540, 210);
-            dataGridView1.TabIndex = 5;
-            dataGridView1.CellContentClick += dataGridView1_CellContentClick;
+            DgvDesglosePrecioTotal.BackgroundColor = SystemColors.ButtonHighlight;
+            DgvDesglosePrecioTotal.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            DgvDesglosePrecioTotal.Location = new Point(586, 263);
+            DgvDesglosePrecioTotal.Name = "DgvDesglosePrecioTotal";
+            DgvDesglosePrecioTotal.Size = new Size(540, 210);
+            DgvDesglosePrecioTotal.TabIndex = 5;
+            DgvDesglosePrecioTotal.CellContentClick += dataGridView1_CellContentClick;
             // 
-            // TextBoxFerriViaje
+            // textBox1
             // 
-            TextBoxFerriViaje.Location = new Point(143, 417);
-            TextBoxFerriViaje.Name = "TextBoxFerriViaje";
-            TextBoxFerriViaje.Size = new Size(100, 23);
-            TextBoxFerriViaje.TabIndex = 4;
-            TextBoxFerriViaje.TextChanged += textBox2_TextChanged;
+            textBox1.Location = new Point(143, 290);
+            textBox1.Name = "textBox1";
+            textBox1.Size = new Size(100, 23);
+            textBox1.TabIndex = 4;
+            textBox1.TextChanged += textBox2_TextChanged;
             // 
             // CheckListViaticoViaje
             // 
             CheckListViaticoViaje.FormattingEnabled = true;
             CheckListViaticoViaje.Items.AddRange(new object[] { "Vático1" });
-            CheckListViaticoViaje.Location = new Point(72, 293);
+            CheckListViaticoViaje.Location = new Point(72, 170);
             CheckListViaticoViaje.Name = "CheckListViaticoViaje";
             CheckListViaticoViaje.Size = new Size(171, 94);
             CheckListViaticoViaje.TabIndex = 3;
             CheckListViaticoViaje.SelectedIndexChanged += checkedListBox1_SelectedIndexChanged;
-            // 
-            // CheckListPeajeViaje
-            // 
-            CheckListPeajeViaje.FormattingEnabled = true;
-            CheckListPeajeViaje.Items.AddRange(new object[] { "Peaje1" });
-            CheckListPeajeViaje.Location = new Point(72, 175);
-            CheckListPeajeViaje.Name = "CheckListPeajeViaje";
-            CheckListPeajeViaje.Size = new Size(171, 94);
-            CheckListPeajeViaje.TabIndex = 3;
-            CheckListPeajeViaje.SelectedIndexChanged += checkedListBox1_SelectedIndexChanged;
             // 
             // ComboBoxCombustibleViaje
             // 
@@ -199,6 +198,16 @@
             ComboBoxDestinoViaje.Size = new Size(171, 23);
             ComboBoxDestinoViaje.TabIndex = 2;
             // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(11, 290);
+            label7.Name = "label7";
+            label7.Size = new Size(126, 15);
+            label7.TabIndex = 1;
+            label7.Text = "Ferri (Ingrese el costo):";
+            label7.Click += label1_Click;
+            // 
             // ComboBoxVehículoViaje
             // 
             ComboBoxVehículoViaje.FormattingEnabled = true;
@@ -207,30 +216,10 @@
             ComboBoxVehículoViaje.Size = new Size(171, 23);
             ComboBoxVehículoViaje.TabIndex = 2;
             // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Location = new Point(11, 417);
-            label6.Name = "label6";
-            label6.Size = new Size(126, 15);
-            label6.TabIndex = 1;
-            label6.Text = "Ferri (Ingrese el costo):";
-            label6.Click += label1_Click;
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Location = new Point(11, 175);
-            label7.Name = "label7";
-            label7.Size = new Size(43, 15);
-            label7.TabIndex = 1;
-            label7.Text = "Peajes:";
-            label7.Click += label1_Click;
-            // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(11, 293);
+            label5.Location = new Point(11, 170);
             label5.Name = "label5";
             label5.Size = new Size(51, 15);
             label5.TabIndex = 1;
@@ -279,13 +268,14 @@
             // 
             // tabPage2
             // 
-            tabPage2.Controls.Add(button5);
-            tabPage2.Controls.Add(button1);
+            tabPage2.Controls.Add(BtnEliminarViaje);
+            tabPage2.Controls.Add(BtnEditarViaje);
+            tabPage2.Controls.Add(BtnExportarRegistro);
             tabPage2.Controls.Add(label12);
             tabPage2.Controls.Add(label11);
-            tabPage2.Controls.Add(dataGridView4);
-            tabPage2.Controls.Add(dataGridView3);
-            tabPage2.Controls.Add(checkedListBox3);
+            tabPage2.Controls.Add(DgvDesglosePrecioSoloDelCombustibleGuardado);
+            tabPage2.Controls.Add(DgvDesglosePrecioTotalGuardados);
+            tabPage2.Controls.Add(CheckListBoxViaje);
             tabPage2.Controls.Add(label10);
             tabPage2.Location = new Point(4, 24);
             tabPage2.Name = "tabPage2";
@@ -296,25 +286,35 @@
             tabPage2.UseVisualStyleBackColor = true;
             tabPage2.Click += tabPage2_Click;
             // 
-            // button5
+            // BtnEliminarViaje
             // 
-            button5.BackColor = Color.FromArgb(97, 97, 96);
-            button5.Location = new Point(946, 500);
-            button5.Name = "button5";
-            button5.Size = new Size(195, 35);
-            button5.TabIndex = 3;
-            button5.Text = "Editar Viaje";
-            button5.UseVisualStyleBackColor = false;
+            BtnEliminarViaje.BackColor = Color.FromArgb(97, 97, 96);
+            BtnEliminarViaje.Location = new Point(991, 500);
+            BtnEliminarViaje.Name = "BtnEliminarViaje";
+            BtnEliminarViaje.Size = new Size(150, 35);
+            BtnEliminarViaje.TabIndex = 3;
+            BtnEliminarViaje.Text = "Editar Viaje";
+            BtnEliminarViaje.UseVisualStyleBackColor = false;
             // 
-            // button1
+            // BtnEditarViaje
             // 
-            button1.BackColor = Color.FromArgb(97, 97, 96);
-            button1.Location = new Point(736, 500);
-            button1.Name = "button1";
-            button1.Size = new Size(195, 35);
-            button1.TabIndex = 3;
-            button1.Text = "Editar Viaje";
-            button1.UseVisualStyleBackColor = false;
+            BtnEditarViaje.BackColor = Color.FromArgb(97, 97, 96);
+            BtnEditarViaje.Location = new Point(835, 500);
+            BtnEditarViaje.Name = "BtnEditarViaje";
+            BtnEditarViaje.Size = new Size(150, 35);
+            BtnEditarViaje.TabIndex = 3;
+            BtnEditarViaje.Text = "Editar Viaje";
+            BtnEditarViaje.UseVisualStyleBackColor = false;
+            // 
+            // BtnExportarRegistro
+            // 
+            BtnExportarRegistro.BackColor = Color.FromArgb(97, 97, 96);
+            BtnExportarRegistro.Location = new Point(679, 500);
+            BtnExportarRegistro.Name = "BtnExportarRegistro";
+            BtnExportarRegistro.Size = new Size(150, 35);
+            BtnExportarRegistro.TabIndex = 3;
+            BtnExportarRegistro.Text = "Exportar Registro";
+            BtnExportarRegistro.UseVisualStyleBackColor = false;
             // 
             // label12
             // 
@@ -336,32 +336,32 @@
             label11.Text = "Desglose de precio únicamente de combustible:";
             label11.Click += label11_Click;
             // 
-            // dataGridView4
+            // DgvDesglosePrecioSoloDelCombustibleGuardado
             // 
-            dataGridView4.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView4.Location = new Point(601, 284);
-            dataGridView4.Name = "dataGridView4";
-            dataGridView4.Size = new Size(540, 210);
-            dataGridView4.TabIndex = 1;
+            DgvDesglosePrecioSoloDelCombustibleGuardado.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            DgvDesglosePrecioSoloDelCombustibleGuardado.Location = new Point(601, 35);
+            DgvDesglosePrecioSoloDelCombustibleGuardado.Name = "DgvDesglosePrecioSoloDelCombustibleGuardado";
+            DgvDesglosePrecioSoloDelCombustibleGuardado.Size = new Size(540, 210);
+            DgvDesglosePrecioSoloDelCombustibleGuardado.TabIndex = 1;
             // 
-            // dataGridView3
+            // DgvDesglosePrecioTotalGuardados
             // 
-            dataGridView3.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView3.Location = new Point(601, 35);
-            dataGridView3.Name = "dataGridView3";
-            dataGridView3.Size = new Size(540, 210);
-            dataGridView3.TabIndex = 1;
+            DgvDesglosePrecioTotalGuardados.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            DgvDesglosePrecioTotalGuardados.Location = new Point(601, 284);
+            DgvDesglosePrecioTotalGuardados.Name = "DgvDesglosePrecioTotalGuardados";
+            DgvDesglosePrecioTotalGuardados.Size = new Size(540, 210);
+            DgvDesglosePrecioTotalGuardados.TabIndex = 1;
             // 
-            // checkedListBox3
+            // CheckListBoxViaje
             // 
-            checkedListBox3.BackColor = SystemColors.AppWorkspace;
-            checkedListBox3.FormattingEnabled = true;
-            checkedListBox3.Items.AddRange(new object[] { "Viaje1" });
-            checkedListBox3.Location = new Point(6, 21);
-            checkedListBox3.Name = "checkedListBox3";
-            checkedListBox3.Size = new Size(302, 508);
-            checkedListBox3.TabIndex = 1;
-            checkedListBox3.SelectedIndexChanged += checkedListBox3_SelectedIndexChanged;
+            CheckListBoxViaje.BackColor = SystemColors.AppWorkspace;
+            CheckListBoxViaje.FormattingEnabled = true;
+            CheckListBoxViaje.Items.AddRange(new object[] { "Viaje1" });
+            CheckListBoxViaje.Location = new Point(6, 21);
+            CheckListBoxViaje.Name = "CheckListBoxViaje";
+            CheckListBoxViaje.Size = new Size(302, 508);
+            CheckListBoxViaje.TabIndex = 1;
+            CheckListBoxViaje.SelectedIndexChanged += checkedListBox3_SelectedIndexChanged;
             // 
             // label10
             // 
@@ -371,6 +371,14 @@
             label10.Size = new Size(101, 15);
             label10.TabIndex = 0;
             label10.Text = "Viajes registrados:";
+            // 
+            // DateTimePickerViajes
+            // 
+            DateTimePickerViajes.Format = DateTimePickerFormat.Short;
+            DateTimePickerViajes.Location = new Point(58, 14);
+            DateTimePickerViajes.Name = "DateTimePickerViajes";
+            DateTimePickerViajes.Size = new Size(185, 23);
+            DateTimePickerViajes.TabIndex = 10;
             // 
             // JourneyMenu
             // 
@@ -383,12 +391,12 @@
             tabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
             tabPage1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView2).EndInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridView1).EndInit();
+            ((System.ComponentModel.ISupportInitialize)DgvDesglosePrecioSoloDelCombustible).EndInit();
+            ((System.ComponentModel.ISupportInitialize)DgvDesglosePrecioTotal).EndInit();
             tabPage2.ResumeLayout(false);
             tabPage2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridView4).EndInit();
-            ((System.ComponentModel.ISupportInitialize)dataGridView3).EndInit();
+            ((System.ComponentModel.ISupportInitialize)DgvDesglosePrecioSoloDelCombustibleGuardado).EndInit();
+            ((System.ComponentModel.ISupportInitialize)DgvDesglosePrecioTotalGuardados).EndInit();
             ResumeLayout(false);
         }
 
@@ -397,33 +405,34 @@
         private TabControl tabControl1;
         private TabPage tabPage1;
         private TabPage tabPage2;
-        private DateTimePicker dateTimePicker1;
+        private DateTimePicker DateTimePickerViaje;
         private Label label1;
-        private ComboBox comboBox1;
         private Label label2;
         private ComboBox ComboBoxVehículoViaje;
         private Label label3;
         private Label label4;
         private ComboBox ComboBoxCombustibleViaje;
         private Label label5;
-        private CheckedListBox CheckListPeajeViaje;
-        private Label label6;
         private CheckedListBox CheckListViaticoViaje;
-        private Label label7;
-        private TextBox TextBoxFerriViaje;
-        private DataGridView dataGridView2;
-        private DataGridView dataGridView1;
+        private DataGridView DgvDesglosePrecioSoloDelCombustible;
+        private DataGridView DgvDesglosePrecioTotal;
         private Label label8;
         private Label label9;
-        private Button button2;
+        private Button BtnGuardarViaje;
         private Label label10;
-        private CheckedListBox checkedListBox3;
+        private CheckedListBox CheckListBoxViaje;
         private DataGridView dataGridView3;
-        private DataGridView dataGridView4;
+        private DataGridView DgvDesglosePrecioTotalGuardados;
         private Label label11;
         private Label label12;
-        private Button button1;
+        private Button BtnExportarRegistro;
         private Button button5;
         private ComboBox ComboBoxDestinoViaje;
+        private DataGridView DgvDesglosePrecioSoloDelCombustibleGuardado;
+        private Button BtnEditarViaje;
+        private Button BtnEliminarViaje;
+        private TextBox textBox1;
+        private Label label7;
+        private DateTimePicker DateTimePickerViajes;
     }
 }
