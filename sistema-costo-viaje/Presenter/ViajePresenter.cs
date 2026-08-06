@@ -86,7 +86,7 @@ namespace SistemaCostoViaje.Presenter
         /// </summary>
         /// <param name="id">Identificador del viaje a eliminar.</param>
         public void EliminarViaje(int id)
-F        {
+        {
             _viajeBL.Eliminar(id);
             ActualizarVista();
         }
