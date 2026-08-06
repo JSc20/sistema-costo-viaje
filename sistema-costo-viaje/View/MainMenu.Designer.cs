@@ -31,8 +31,8 @@
             components = new System.ComponentModel.Container();
             contextMenuStrip1 = new ContextMenuStrip(components);
             label1 = new Label();
-            button1 = new Button();
-            button2 = new Button();
+            BtnEntrarAMenuDeViajes = new Button();
+            BtnEntrarAMenuDeTecnicos = new Button();
             button3 = new Button();
             button4 = new Button();
             button5 = new Button();
@@ -50,23 +50,23 @@
             label1.Size = new Size(100, 23);
             label1.TabIndex = 1;
             // 
-            // button1
+            // BtnEntrarAMenuDeViajes
             // 
-            button1.Location = new Point(173, 165);
-            button1.Name = "button1";
-            button1.Size = new Size(130, 50);
-            button1.TabIndex = 3;
-            button1.Text = "Gestionar viajes";
-            button1.UseVisualStyleBackColor = true;
+            BtnEntrarAMenuDeViajes.Location = new Point(173, 165);
+            BtnEntrarAMenuDeViajes.Name = "BtnEntrarAMenuDeViajes";
+            BtnEntrarAMenuDeViajes.Size = new Size(130, 50);
+            BtnEntrarAMenuDeViajes.TabIndex = 3;
+            BtnEntrarAMenuDeViajes.Text = "Gestionar viajes";
+            BtnEntrarAMenuDeViajes.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // BtnEntrarAMenuDeTecnicos
             // 
-            button2.Location = new Point(173, 221);
-            button2.Name = "button2";
-            button2.Size = new Size(130, 50);
-            button2.TabIndex = 4;
-            button2.Text = "Gestionar técnicos";
-            button2.UseVisualStyleBackColor = true;
+            BtnEntrarAMenuDeTecnicos.Location = new Point(173, 221);
+            BtnEntrarAMenuDeTecnicos.Name = "BtnEntrarAMenuDeTecnicos";
+            BtnEntrarAMenuDeTecnicos.Size = new Size(130, 50);
+            BtnEntrarAMenuDeTecnicos.TabIndex = 4;
+            BtnEntrarAMenuDeTecnicos.Text = "Gestionar técnicos";
+            BtnEntrarAMenuDeTecnicos.UseVisualStyleBackColor = true;
             // 
             // button3
             // 
@@ -106,8 +106,8 @@
             Controls.Add(button5);
             Controls.Add(button4);
             Controls.Add(button3);
-            Controls.Add(button2);
-            Controls.Add(button1);
+            Controls.Add(BtnEntrarAMenuDeTecnicos);
+            Controls.Add(BtnEntrarAMenuDeViajes);
             Controls.Add(label1);
             Name = "MainMenu";
             Text = "Menú Principal ";
@@ -119,8 +119,8 @@
 
         private ContextMenuStrip contextMenuStrip1;
         private Label label1;
-        private Button button1;
-        private Button button2;
+        private Button BtnEntrarAMenuDeViajes;
+        private Button BtnEntrarAMenuDeTecnicos;
         private Button button3;
         private Button button4;
         private Button button5;

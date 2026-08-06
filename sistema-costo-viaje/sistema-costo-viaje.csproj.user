@@ -1,6 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <Compile Update="View\DestinationMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="View\FuelTypeMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="View\JourneyMenu.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -10,7 +16,13 @@
     <Compile Update="View\TechnicalMenu.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="View\TollMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="View\VehicleMenu.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="View\ViaticumMenu.cs">
       <SubType>Form</SubType>
     </Compile>
   </ItemGroup>
