@@ -80,6 +80,7 @@
             dataGridView1.Name = "dataGridView1";
             dataGridView1.Size = new Size(460, 160);
             dataGridView1.TabIndex = 2;
+            dataGridView1.CellClick += dataGridView1_CellClick;
             // 
             // BtnEditarViatico
             // 
@@ -90,6 +91,7 @@
             BtnEditarViatico.TabIndex = 3;
             BtnEditarViatico.Text = "Editar Viático";
             BtnEditarViatico.UseVisualStyleBackColor = false;
+            BtnEditarViatico.Click += BtnEditarViatico_Click;
             // 
             // BtnEiminarViatico
             // 
@@ -100,6 +102,7 @@
             BtnEiminarViatico.TabIndex = 3;
             BtnEiminarViatico.Text = "Eliminar Viático";
             BtnEiminarViatico.UseVisualStyleBackColor = false;
+            BtnEiminarViatico.Click += BtnEliminarViatico_Click;
             // 
             // BtnGuardarViatico
             // 
@@ -110,7 +113,7 @@
             BtnGuardarViatico.TabIndex = 3;
             BtnGuardarViatico.Text = "Guardar Viático";
             BtnGuardarViatico.UseVisualStyleBackColor = false;
-            BtnGuardarViatico.Click += button1_Click;
+            BtnGuardarViatico.Click += BtnGuardarViatico_Click;
             // 
             // ViaticumMenu
             // 

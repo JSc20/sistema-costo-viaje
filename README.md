@@ -48,7 +48,7 @@ sistema-costo-viaje/
 | Entidades restantes (Técnico, Destino, ViaticoViaje, Peaje) | ✅ |
 | DAL de RendimientoVehiculo y MantenimientoVehiculo | ✅ |
 | BL de TipoCombustible, RendimientoVehiculo y MantenimientoVehiculo | ✅ |
-| Persistencia a base de datos (SQL Server / SQLite) | ❌ |
+| Persistencia a base de datos (SQLite) | ✅ |
 | Formularios de catálogos (Vehículo, Combustible, etc.) | ❌ |
 | Reportes y exportación | ❌ |
 | Pruebas unitarias (xUnit — BL, VL y DAL) | ✅ |
@@ -174,7 +174,7 @@ erDiagram
 - [X] Entidad `Destino`
 - [X] Entidad `ViaticoViaje`
 - [X] Entidad `Peaje`
-- [X] Persistencia a base de datos (SQL Server / SQLite)
+- [X] Persistencia a base de datos (SQLite)
 - [X] Pruebas unitarias
 
 ### Fase 4 — Cálculo avanzado de costos

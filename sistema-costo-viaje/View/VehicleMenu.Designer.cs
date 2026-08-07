@@ -110,6 +110,7 @@
             BtnEliminarVehiculo.TabIndex = 9;
             BtnEliminarVehiculo.Text = "Eliminar";
             BtnEliminarVehiculo.UseVisualStyleBackColor = true;
+            BtnEliminarVehiculo.Click += BtnEliminarVehiculo_Click;
             // 
             // BtnEditarVehiculo
             // 
@@ -119,7 +120,7 @@
             BtnEditarVehiculo.TabIndex = 9;
             BtnEditarVehiculo.Text = "Editar";
             BtnEditarVehiculo.UseVisualStyleBackColor = true;
-            BtnEditarVehiculo.Click += button4_Click;
+            BtnEditarVehiculo.Click += BtnEditarVehiculo_Click;
             // 
             // BtnGuardarVehículo
             // 
@@ -129,6 +130,7 @@
             BtnGuardarVehículo.TabIndex = 9;
             BtnGuardarVehículo.Text = "Guardar";
             BtnGuardarVehículo.UseVisualStyleBackColor = true;
+            BtnGuardarVehículo.Click += BtnGuardarVehiculo_Click;
             // 
             // DgvListaDeListaVehiculos
             // 
@@ -137,6 +139,7 @@
             DgvListaDeListaVehiculos.Name = "DgvListaDeListaVehiculos";
             DgvListaDeListaVehiculos.Size = new Size(494, 136);
             DgvListaDeListaVehiculos.TabIndex = 8;
+            DgvListaDeListaVehiculos.CellClick += DgvListaDeListaVehiculos_CellClick;
             // 
             // label4
             // 
@@ -156,7 +159,7 @@
             BtnActivarMantenimientoVehiculo.TabIndex = 6;
             BtnActivarMantenimientoVehiculo.Text = ":::";
             BtnActivarMantenimientoVehiculo.UseVisualStyleBackColor = true;
-            BtnActivarMantenimientoVehiculo.Click += button2_Click;
+            BtnActivarMantenimientoVehiculo.Click += BtnActivarMantenimientoVehiculo_Click;
             // 
             // BtnActivarMenuRendimientoVehiculo
             // 
@@ -166,6 +169,7 @@
             BtnActivarMenuRendimientoVehiculo.TabIndex = 6;
             BtnActivarMenuRendimientoVehiculo.Text = ":::";
             BtnActivarMenuRendimientoVehiculo.UseVisualStyleBackColor = true;
+            BtnActivarMenuRendimientoVehiculo.Click += BtnActivarMenuRendimientoVehiculo_Click;
             // 
             // TextBoxKmActualVehiculo
             // 
@@ -300,7 +304,7 @@
             BtnEliminarRendimientoVehiculo.TabIndex = 11;
             BtnEliminarRendimientoVehiculo.Text = "Eliminar";
             BtnEliminarRendimientoVehiculo.UseVisualStyleBackColor = true;
-            BtnEliminarRendimientoVehiculo.Click += button5_Click;
+            BtnEliminarRendimientoVehiculo.Click += BtnEliminarRendimientoVehiculo_Click;
             // 
             // BtnEditarRendimientoVehiculo
             // 
@@ -310,7 +314,7 @@
             BtnEditarRendimientoVehiculo.TabIndex = 11;
             BtnEditarRendimientoVehiculo.Text = "Editar";
             BtnEditarRendimientoVehiculo.UseVisualStyleBackColor = true;
-            BtnEditarRendimientoVehiculo.Click += button5_Click;
+            BtnEditarRendimientoVehiculo.Click += BtnEditarRendimientoVehiculo_Click;
             // 
             // BtnGuardarRendimientoVehiculo
             // 
@@ -320,7 +324,7 @@
             BtnGuardarRendimientoVehiculo.TabIndex = 11;
             BtnGuardarRendimientoVehiculo.Text = "Guardar";
             BtnGuardarRendimientoVehiculo.UseVisualStyleBackColor = true;
-            BtnGuardarRendimientoVehiculo.Click += button5_Click;
+            BtnGuardarRendimientoVehiculo.Click += BtnGuardarRendimientoVehiculo_Click;
             // 
             // DgvListaRendimientoVehiculo
             // 
@@ -425,7 +429,7 @@
             BtnEliminarMantenimientoVehiculo.TabIndex = 11;
             BtnEliminarMantenimientoVehiculo.Text = "Eliminar";
             BtnEliminarMantenimientoVehiculo.UseVisualStyleBackColor = true;
-            BtnEliminarMantenimientoVehiculo.Click += button5_Click;
+            BtnEliminarMantenimientoVehiculo.Click += BtnEliminarMantenimientoVehiculo_Click;
             // 
             // BtnEditarMantenimientoVehiculo
             // 
@@ -435,7 +439,7 @@
             BtnEditarMantenimientoVehiculo.TabIndex = 11;
             BtnEditarMantenimientoVehiculo.Text = "Editar";
             BtnEditarMantenimientoVehiculo.UseVisualStyleBackColor = true;
-            BtnEditarMantenimientoVehiculo.Click += button5_Click;
+            BtnEditarMantenimientoVehiculo.Click += BtnEditarMantenimientoVehiculo_Click;
             // 
             // BtnGuardarMantenimientoVehiculo
             // 
@@ -445,7 +449,7 @@
             BtnGuardarMantenimientoVehiculo.TabIndex = 11;
             BtnGuardarMantenimientoVehiculo.Text = "Guardar";
             BtnGuardarMantenimientoVehiculo.UseVisualStyleBackColor = true;
-            BtnGuardarMantenimientoVehiculo.Click += button5_Click;
+            BtnGuardarMantenimientoVehiculo.Click += BtnGuardarMantenimientoVehiculo_Click;
             // 
             // DgvListaMantenimientoVehiculo
             // 

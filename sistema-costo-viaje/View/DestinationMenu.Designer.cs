@@ -37,6 +37,8 @@
             BtnEditarDestino = new Button();
             BtnEliminarDestino = new Button();
             TextBoxNombreDestino = new TextBox();
+            DgvListaDeDestinos = new DataGridView();
+            ((System.ComponentModel.ISupportInitialize)DgvListaDeDestinos).BeginInit();
             SuspendLayout();
             // 
             // label1
@@ -92,6 +94,7 @@
             BtnGuardarDestino.TabIndex = 4;
             BtnGuardarDestino.Text = "Guardar Destino";
             BtnGuardarDestino.UseVisualStyleBackColor = false;
+            BtnGuardarDestino.Click += BtnGuardarDestino_Click;
             // 
             // BtnEditarDestino
             // 
@@ -102,6 +105,7 @@
             BtnEditarDestino.TabIndex = 5;
             BtnEditarDestino.Text = "Editar Destino";
             BtnEditarDestino.UseVisualStyleBackColor = false;
+            BtnEditarDestino.Click += BtnEditarDestino_Click;
             // 
             // BtnEliminarDestino
             // 
@@ -112,6 +116,7 @@
             BtnEliminarDestino.TabIndex = 6;
             BtnEliminarDestino.Text = "Eliminar Destino";
             BtnEliminarDestino.UseVisualStyleBackColor = false;
+            BtnEliminarDestino.Click += BtnEliminarDestino_Click;
             // 
             // TextBoxNombreDestino
             // 
@@ -120,11 +125,21 @@
             TextBoxNombreDestino.Size = new Size(143, 23);
             TextBoxNombreDestino.TabIndex = 2;
             // 
+            // DgvListaDeDestinos
+            // 
+            DgvListaDeDestinos.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            DgvListaDeDestinos.Location = new Point(12, 430);
+            DgvListaDeDestinos.Name = "DgvListaDeDestinos";
+            DgvListaDeDestinos.Size = new Size(460, 60);
+            DgvListaDeDestinos.TabIndex = 7;
+            DgvListaDeDestinos.CellClick += DgvListaDeDestinos_CellClick;
+            // 
             // DestinationMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(484, 501);
+            Controls.Add(DgvListaDeDestinos);
             Controls.Add(BtnEliminarDestino);
             Controls.Add(BtnEditarDestino);
             Controls.Add(BtnGuardarDestino);
@@ -136,6 +151,8 @@
             Controls.Add(label1);
             Name = "DestinationMenu";
             Text = "DestinationMenu";
+            Load += DestinationMenu_Load;
+            ((System.ComponentModel.ISupportInitialize)DgvListaDeDestinos).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
@@ -152,5 +169,6 @@
         private Button BtnEditarDestino;
         private Button BtnEliminarDestino;
         private TextBox TextBoxNombreDestino;
+        private DataGridView DgvListaDeDestinos;
     }
 }

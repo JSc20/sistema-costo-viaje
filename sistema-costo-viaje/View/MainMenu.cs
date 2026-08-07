@@ -25,14 +25,60 @@ namespace sistema_costo_viaje.View
 
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void BtnEntrarAMenuDeViajes_Click(object sender, EventArgs e)
         {
-
+            using (var formulario = new JourneyMenu())
+            {
+                formulario.ShowDialog(this);
+            }
         }
 
         private void BtnEntrarAMenuDeTecnicos_Click(object sender, EventArgs e)
         {
+            using (var formulario = new TechnicalMenu())
+            {
+                formulario.ShowDialog(this);
+            }
+        }
 
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (sender is not Button boton)
+                return;
+
+            switch (boton.Name)
+            {
+                case "button3":
+                    using (var formulario = new Menú_Vehículos())
+                    {
+                        formulario.ShowDialog(this);
+                    }
+                    break;
+                case "button4":
+                    using (var formulario = new ViaticumMenu())
+                    {
+                        formulario.ShowDialog(this);
+                    }
+                    break;
+                case "button5":
+                    using (var formulario = new TollMenu())
+                    {
+                        formulario.ShowDialog(this);
+                    }
+                    break;
+                case "button7":
+                    using (var formulario = new DestinationMenu())
+                    {
+                        formulario.ShowDialog(this);
+                    }
+                    break;
+                case "button1":
+                    using (var formulario = new FuelTypeMenu())
+                    {
+                        formulario.ShowDialog(this);
+                    }
+                    break;
+            }
         }
     }
 }

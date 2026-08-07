@@ -60,6 +60,7 @@
             BtnEntrarAMenuDeViajes.TabIndex = 3;
             BtnEntrarAMenuDeViajes.Text = "Gestionar viajes";
             BtnEntrarAMenuDeViajes.UseVisualStyleBackColor = true;
+            BtnEntrarAMenuDeViajes.Click += BtnEntrarAMenuDeViajes_Click;
             // 
             // BtnEntrarAMenuDeTecnicos
             // 
