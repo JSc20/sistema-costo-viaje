@@ -67,6 +67,11 @@ namespace SistemaCostoViaje.DAL
         /// </summary>
         private static void Inicializar()
         {
+            // Los datos semilla solo se insertan cuando el archivo de base de datos se crea por primera vez.
+            // Así, si el usuario elimina todos los vehículos, ese cambio se conserva al reiniciar la aplicación
+            // y los vehículos "por defecto" no vuelven a aparecer (issue #64).
+            bool baseRecienCreada = !File.Exists(RutaBaseDatos);
+
             using var conexion = AbrirConexion();
 
             using (var comando = CrearComando(conexion, Esquema))
@@ -74,16 +79,12 @@ namespace SistemaCostoViaje.DAL
                 comando.ExecuteNonQuery();
             }
 
-            SembrarVehiculos(conexion);
+            if (baseRecienCreada)
+                SembrarVehiculos(conexion);
         }
 
         private static void SembrarVehiculos(SqliteConnection conexion)
         {
-            using var conteo = CrearComando(conexion, "SELECT COUNT(*) FROM Vehiculos");
-            long total = Convert.ToInt64(conteo.ExecuteScalar());
-            if (total > 0)
-                return;
-
             const string sql = """
                 INSERT INTO Vehiculos (Id, Marca, Modelo, "Año", CostoPorKm, ValorActual, ValorFuturo, KmRestantesUso, KmAnuales, CostosFijosAnuales)
                 VALUES (1, 'Toyota', 'Corolla', 2020, 0.80, 8000000, 3000000, 100000, 15000, 400000),
