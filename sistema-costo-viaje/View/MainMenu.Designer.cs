@@ -36,6 +36,8 @@
             button3 = new Button();
             button4 = new Button();
             button5 = new Button();
+            button7 = new Button();
+            button1 = new Button();
             SuspendLayout();
             // 
             // contextMenuStrip1
@@ -52,7 +54,7 @@
             // 
             // BtnEntrarAMenuDeViajes
             // 
-            BtnEntrarAMenuDeViajes.Location = new Point(173, 165);
+            BtnEntrarAMenuDeViajes.Location = new Point(168, 36);
             BtnEntrarAMenuDeViajes.Name = "BtnEntrarAMenuDeViajes";
             BtnEntrarAMenuDeViajes.Size = new Size(130, 50);
             BtnEntrarAMenuDeViajes.TabIndex = 3;
@@ -61,16 +63,17 @@
             // 
             // BtnEntrarAMenuDeTecnicos
             // 
-            BtnEntrarAMenuDeTecnicos.Location = new Point(173, 221);
+            BtnEntrarAMenuDeTecnicos.Location = new Point(168, 92);
             BtnEntrarAMenuDeTecnicos.Name = "BtnEntrarAMenuDeTecnicos";
             BtnEntrarAMenuDeTecnicos.Size = new Size(130, 50);
             BtnEntrarAMenuDeTecnicos.TabIndex = 4;
             BtnEntrarAMenuDeTecnicos.Text = "Gestionar técnicos";
             BtnEntrarAMenuDeTecnicos.UseVisualStyleBackColor = true;
+            BtnEntrarAMenuDeTecnicos.Click += BtnEntrarAMenuDeTecnicos_Click;
             // 
             // button3
             // 
-            button3.Location = new Point(173, 277);
+            button3.Location = new Point(168, 148);
             button3.Name = "button3";
             button3.Size = new Size(130, 50);
             button3.TabIndex = 4;
@@ -80,7 +83,7 @@
             // 
             // button4
             // 
-            button4.Location = new Point(173, 333);
+            button4.Location = new Point(168, 204);
             button4.Name = "button4";
             button4.Size = new Size(130, 50);
             button4.TabIndex = 4;
@@ -90,19 +93,41 @@
             // 
             // button5
             // 
-            button5.Location = new Point(173, 389);
+            button5.Location = new Point(168, 260);
             button5.Name = "button5";
             button5.Size = new Size(130, 50);
             button5.TabIndex = 4;
-            button5.Text = "Gestionar Peajes";
+            button5.Text = "Gestionar peajes";
             button5.UseVisualStyleBackColor = true;
             button5.Click += button3_Click;
+            // 
+            // button7
+            // 
+            button7.Location = new Point(168, 372);
+            button7.Name = "button7";
+            button7.Size = new Size(130, 50);
+            button7.TabIndex = 4;
+            button7.Text = "Gestionar destino";
+            button7.UseVisualStyleBackColor = true;
+            button7.Click += button3_Click;
+            // 
+            // button1
+            // 
+            button1.Location = new Point(168, 316);
+            button1.Name = "button1";
+            button1.Size = new Size(130, 50);
+            button1.TabIndex = 4;
+            button1.Text = "Gestionar combustible";
+            button1.UseVisualStyleBackColor = true;
+            button1.Click += button3_Click;
             // 
             // MainMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(484, 501);
+            Controls.Add(button7);
+            Controls.Add(button1);
             Controls.Add(button5);
             Controls.Add(button4);
             Controls.Add(button3);
@@ -124,5 +149,7 @@
         private Button button3;
         private Button button4;
         private Button button5;
+        private Button button1;
+        private Button button7;
     }
 }

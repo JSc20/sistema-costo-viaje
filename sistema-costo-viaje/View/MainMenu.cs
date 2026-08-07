@@ -29,5 +29,10 @@ namespace sistema_costo_viaje.View
         {
 
         }
+
+        private void BtnEntrarAMenuDeTecnicos_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

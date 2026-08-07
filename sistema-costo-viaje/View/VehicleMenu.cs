@@ -79,5 +79,10 @@ namespace sistema_costo_viaje.View
         {
 
         }
+
+        private void CheckListBoxRendimientoVehiculo_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
     }
 }
