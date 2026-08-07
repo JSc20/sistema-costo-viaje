@@ -33,7 +33,7 @@
             BtnEditarVehiculo = new Button();
             BtnGuardarVehículo = new Button();
             DgvListaDeListaVehiculos = new DataGridView();
-            TextBoxMarcaVehiculo = new TextBox();
+            ComboBoxMarcaVehiculo = new ComboBox();
             TextBoxModeloVehiculo = new TextBox();
             TextBoxAnioVehiculo = new TextBox();
             TextBoxCostoPorKmVehiculo = new TextBox();
@@ -95,7 +95,7 @@
             tabPage1.Controls.Add(BtnEditarVehiculo);
             tabPage1.Controls.Add(BtnGuardarVehículo);
             tabPage1.Controls.Add(DgvListaDeListaVehiculos);
-            tabPage1.Controls.Add(TextBoxMarcaVehiculo);
+            tabPage1.Controls.Add(ComboBoxMarcaVehiculo);
             tabPage1.Controls.Add(TextBoxModeloVehiculo);
             tabPage1.Controls.Add(TextBoxAnioVehiculo);
             tabPage1.Controls.Add(TextBoxCostoPorKmVehiculo);
@@ -188,12 +188,14 @@
             label16.TabIndex = 7;
             label16.Text = "Valor actual:";
             // 
-            // TextBoxMarcaVehiculo
+            // ComboBoxMarcaVehiculo
             // 
-            TextBoxMarcaVehiculo.Location = new Point(90, 18);
-            TextBoxMarcaVehiculo.Name = "TextBoxMarcaVehiculo";
-            TextBoxMarcaVehiculo.Size = new Size(130, 23);
-            TextBoxMarcaVehiculo.TabIndex = 3;
+            ComboBoxMarcaVehiculo.DropDownStyle = ComboBoxStyle.DropDown;
+            ComboBoxMarcaVehiculo.FormattingEnabled = true;
+            ComboBoxMarcaVehiculo.Location = new Point(90, 18);
+            ComboBoxMarcaVehiculo.Name = "ComboBoxMarcaVehiculo";
+            ComboBoxMarcaVehiculo.Size = new Size(130, 23);
+            ComboBoxMarcaVehiculo.TabIndex = 3;
             // 
             // TextBoxAnioVehiculo
             // 
@@ -621,7 +623,7 @@
         private Button BtnEditarVehiculo;
         private Button BtnGuardarVehículo;
         private DataGridView DgvListaDeListaVehiculos;
-        private TextBox TextBoxMarcaVehiculo;
+        private ComboBox ComboBoxMarcaVehiculo;
         private TextBox TextBoxModeloVehiculo;
         private TextBox TextBoxAnioVehiculo;
         private TextBox TextBoxCostoPorKmVehiculo;
