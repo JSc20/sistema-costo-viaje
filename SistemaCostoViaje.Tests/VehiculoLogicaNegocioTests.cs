@@ -163,6 +163,48 @@ namespace SistemaCostoViaje.Tests
         }
 
         [Fact]
+        public void Eliminar_IdInexistente_DeberiaRetornarFalso()
+        {
+            var logica = new VehiculoLogicaNegocio();
+
+            bool eliminado = logica.Eliminar(999999);
+
+            Assert.False(eliminado);
+        }
+
+        [Fact]
+        public void Eliminar_VehiculoConDatosRelacionados_DeberiaEliminarTambienRendimientosYMantenimientos()
+        {
+            var logicaVehiculo = new VehiculoLogicaNegocio();
+            var logicaRendimiento = new RendimientoVehiculoLogicaNegocio();
+            var logicaMantenimiento = new MantenimientoVehiculoLogicaNegocio();
+
+            var creado = logicaVehiculo.Crear(CrearVehiculoValido());
+            logicaRendimiento.Crear(new RendimientoVehiculo
+            {
+                vehiculo_id = creado.Id,
+                tipo_combustible_id = 1,
+                tipo_entorno = "Urbano",
+                km_por_litro = 12.5m,
+                costo_por_km = 0.10m
+            });
+            logicaMantenimiento.Crear(new MantenimientoVehiculo
+            {
+                VehiculoId = creado.Id,
+                Descripcion = "Cambio de aceite",
+                CostoTotal = 10000m,
+                KmIntervalo = 5000
+            });
+
+            bool eliminado = logicaVehiculo.Eliminar(creado.Id);
+
+            Assert.True(eliminado);
+            Assert.Null(logicaVehiculo.ObtenerPorId(creado.Id));
+            Assert.Empty(logicaRendimiento.ObtenerPorVehiculoId(creado.Id));
+            Assert.Empty(logicaMantenimiento.ObtenerPorVehiculoId(creado.Id));
+        }
+
+        [Fact]
         public void CalcularCostoOperacional_DeberiaLanzarNoImplementado()
         {
             var logica = new VehiculoLogicaNegocio();

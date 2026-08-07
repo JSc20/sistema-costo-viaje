@@ -85,10 +85,14 @@ namespace SistemaCostoViaje.Presenter
         /// Elimina un vehículo por su identificador y actualiza la vista.
         /// </summary>
         /// <param name="id">Identificador del vehículo a eliminar.</param>
-        public void EliminarVehiculo(int id)
+        /// <returns>True si el vehículo existía y fue eliminado; de lo contrario, false.</returns>
+        public bool EliminarVehiculo(int id)
         {
-            _vehiculoBL.Eliminar(id);
-            ActualizarVista();
+            var eliminado = _vehiculoBL.Eliminar(id);
+            if (eliminado)
+                ActualizarVista();
+
+            return eliminado;
         }
 
         /// <summary>
