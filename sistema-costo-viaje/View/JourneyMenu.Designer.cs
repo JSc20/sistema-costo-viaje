@@ -42,6 +42,8 @@
             ComboBoxDestinoViaje = new ComboBox();
             label7 = new Label();
             ComboBoxVehículoViaje = new ComboBox();
+            label13 = new Label();
+            ComboBoxTecnicoViaje = new ComboBox();
             label5 = new Label();
             label4 = new Label();
             label3 = new Label();
@@ -93,6 +95,8 @@
             tabPage1.Controls.Add(ComboBoxDestinoViaje);
             tabPage1.Controls.Add(label7);
             tabPage1.Controls.Add(ComboBoxVehículoViaje);
+            tabPage1.Controls.Add(label13);
+            tabPage1.Controls.Add(ComboBoxTecnicoViaje);
             tabPage1.Controls.Add(label5);
             tabPage1.Controls.Add(label4);
             tabPage1.Controls.Add(label3);
@@ -209,6 +213,24 @@
             label7.TabIndex = 1;
             label7.Text = "Ferri (Ingrese el costo):";
             label7.Click += label1_Click;
+            // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.Location = new Point(11, 325);
+            label13.Name = "label13";
+            label13.Size = new Size(48, 15);
+            label13.TabIndex = 1;
+            label13.Text = "Técnico:";
+            label13.Click += label1_Click;
+            // 
+            // ComboBoxTecnicoViaje
+            // 
+            ComboBoxTecnicoViaje.FormattingEnabled = true;
+            ComboBoxTecnicoViaje.Location = new Point(72, 322);
+            ComboBoxTecnicoViaje.Name = "ComboBoxTecnicoViaje";
+            ComboBoxTecnicoViaje.Size = new Size(171, 23);
+            ComboBoxTecnicoViaje.TabIndex = 2;
             // 
             // ComboBoxVehículoViaje
             // 
@@ -440,5 +462,7 @@
         private TextBox textBox1;
         private Label label7;
         private DateTimePicker DateTimePickerViajes;
+        private Label label13;
+        private ComboBox ComboBoxTecnicoViaje;
     }
 }

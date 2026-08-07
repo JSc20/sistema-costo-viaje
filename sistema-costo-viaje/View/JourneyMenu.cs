@@ -19,12 +19,16 @@ namespace sistema_costo_viaje.View
         private DestinoPresenter _destinoPresenter;
         private TipoCombustiblePresenter _combustiblePresenter;
         private ViaticoViajePresenter _viaticoPresenter;
+        private TecnicoPresenter _tecnicoPresenter;
+        private PeajePresenter _peajePresenter;
 
         private List<Viaje> _viajes = new();
         private List<Vehiculo> _vehiculos = new();
         private List<Destino> _destinos = new();
         private List<TipoCombustible> _combustibles = new();
         private List<ViaticoViaje> _viaticos = new();
+        private List<Tecnico> _tecnicos = new();
+        private List<Peaje> _peajes = new();
 
         private Viaje _viajeSeleccionado;
 
@@ -40,12 +44,16 @@ namespace sistema_costo_viaje.View
             _destinoPresenter = new DestinoPresenter(this);
             _combustiblePresenter = new TipoCombustiblePresenter(this);
             _viaticoPresenter = new ViaticoViajePresenter(this);
+            _tecnicoPresenter = new TecnicoPresenter(this);
+            _peajePresenter = new PeajePresenter(this);
 
             _viajePresenter.Inicializar();
             _vehiculoPresenter.Inicializar();
             _destinoPresenter.Inicializar();
             _combustiblePresenter.Inicializar();
             _viaticoPresenter.Inicializar();
+            _tecnicoPresenter.Inicializar();
+            _peajePresenter.Inicializar();
 
             DateTimePickerViajes.Value = DateTime.Today;
         }
@@ -71,6 +79,7 @@ namespace sistema_costo_viaje.View
             SeleccionarCombo(ComboBoxVehículoViaje, viaje.VehiculoId);
             SeleccionarCombo(ComboBoxDestinoViaje, viaje.Destino);
             SeleccionarCombo(ComboBoxCombustibleViaje, viaje.Id);
+            SeleccionarCombo(ComboBoxTecnicoViaje, viaje.TecnicoId);
             textBox1.Text = viaje.CostoFerry.ToString();
             DateTimePickerViajes.Value = viaje.FechaViaje;
         }
@@ -102,6 +111,20 @@ namespace sistema_costo_viaje.View
             ComboBoxCombustibleViaje.ValueMember = "Id";
         }
 
+        public void SetTecnicos(List<Tecnico> tecnicos)
+        {
+            _tecnicos = tecnicos;
+            ComboBoxTecnicoViaje.DataSource = null;
+            ComboBoxTecnicoViaje.DataSource = tecnicos;
+            ComboBoxTecnicoViaje.DisplayMember = "nombre";
+            ComboBoxTecnicoViaje.ValueMember = "id";
+        }
+
+        public void SetPeajes(List<Peaje> peajes)
+        {
+            _peajes = peajes;
+        }
+
         public void SetViaticos(List<ViaticoViaje> viaticos)
         {
             _viaticos = viaticos;
@@ -123,6 +146,9 @@ namespace sistema_costo_viaje.View
                 if (ComboBoxVehículoViaje.SelectedItem is not Vehiculo vehiculo)
                     throw new ArgumentException("Seleccione un vehículo para el viaje");
 
+                if (ComboBoxTecnicoViaje.SelectedItem is not Tecnico tecnico)
+                    throw new ArgumentException("Seleccione un técnico para el viaje");
+
                 decimal costoFerry = 0;
                 if (!string.IsNullOrWhiteSpace(textBox1.Text) &&
                     !decimal.TryParse(textBox1.Text, out costoFerry))
@@ -138,6 +164,7 @@ namespace sistema_costo_viaje.View
                     FechaViaje = DateTimePickerViajes.Value,
                     IdConductor = 1,
                     VehiculoId = vehiculo.Id,
+                    TecnicoId = tecnico.id,
                     HorasOrdinarias = 0,
                     HorasExtra = 0,
                     CostoFerry = costoFerry,
@@ -168,6 +195,9 @@ namespace sistema_costo_viaje.View
                 if (ComboBoxVehículoViaje.SelectedItem is not Vehiculo vehiculo)
                     throw new ArgumentException("Seleccione un vehículo para el viaje");
 
+                if (ComboBoxTecnicoViaje.SelectedItem is not Tecnico tecnico)
+                    throw new ArgumentException("Seleccione un técnico para el viaje");
+
                 decimal costoFerry = 0;
                 if (!string.IsNullOrWhiteSpace(textBox1.Text) &&
                     !decimal.TryParse(textBox1.Text, out costoFerry))
@@ -178,6 +208,7 @@ namespace sistema_costo_viaje.View
                 _viajeSeleccionado.Destino = destino.Nombre;
                 _viajeSeleccionado.DistanciaKm = destino.KmIdaVuelta;
                 _viajeSeleccionado.VehiculoId = vehiculo.Id;
+                _viajeSeleccionado.TecnicoId = tecnico.id;
                 _viajeSeleccionado.CostoFerry = costoFerry;
 
                 _viajePresenter.ActualizarViaje(_viajeSeleccionado);
@@ -253,6 +284,12 @@ namespace sistema_costo_viaje.View
                 ? Math.Round((distancia / rendimientoPorLitro) * combustible.CostoPorLitro, 2)
                 : 0;
 
+            decimal costoPeaje = 0;
+            if (destino?.PeajeId > 0)
+            {
+                costoPeaje = _peajes.FirstOrDefault(p => p.Id == destino.PeajeId)?.Costo ?? 0;
+            }
+
             decimal costoViaticos = CheckListViaticoViaje.CheckedItems.Cast<ViaticoViaje>().Sum(v => v.Monto);
 
             decimal costoFerry = 0;
@@ -264,7 +301,7 @@ namespace sistema_costo_viaje.View
             var desgloseCombustible = new List<object>
             {
                 new { Concepto = "Combustible", Monto = costoCombustible },
-                new { Concepto = "Peajes", Monto = 0m },
+                new { Concepto = "Peajes", Monto = costoPeaje },
                 new { Concepto = "Viáticos", Monto = costoViaticos },
                 new { Concepto = "Ferri", Monto = costoFerry }
             };
@@ -272,10 +309,10 @@ namespace sistema_costo_viaje.View
             var desgloseTotal = new List<object>
             {
                 new { Concepto = "Combustible", Monto = costoCombustible },
-                new { Concepto = "Peajes", Monto = 0m },
+                new { Concepto = "Peajes", Monto = costoPeaje },
                 new { Concepto = "Viáticos", Monto = costoViaticos },
                 new { Concepto = "Ferri", Monto = costoFerry },
-                new { Concepto = "Total", Monto = costoCombustible + costoViaticos + costoFerry }
+                new { Concepto = "Total", Monto = costoCombustible + costoPeaje + costoViaticos + costoFerry }
             };
 
             DgvDesglosePrecioSoloDelCombustible.DataSource = null;
@@ -287,9 +324,17 @@ namespace sistema_costo_viaje.View
 
         private void MostrarDesgloseDelViaje(Viaje viaje)
         {
+            var destino = _destinos.FirstOrDefault(d => d.Nombre.Equals(viaje.Destino, StringComparison.OrdinalIgnoreCase));
+            decimal costoPeaje = 0;
+            if (destino?.PeajeId > 0)
+            {
+                costoPeaje = _peajes.FirstOrDefault(p => p.Id == destino.PeajeId)?.Costo ?? 0;
+            }
+
             var desglose = new List<object>
             {
                 new { Concepto = "Distancia (km)", Monto = viaje.DistanciaKm },
+                new { Concepto = "Peajes", Monto = costoPeaje },
                 new { Concepto = "Costo total", Monto = viaje.CostoBase },
                 new { Concepto = "Ferri", Monto = viaje.CostoFerry },
                 new { Concepto = "Hospedaje", Monto = viaje.CostoHospedaje },
@@ -311,6 +356,12 @@ namespace sistema_costo_viaje.View
             for (int i = 0; i < combo.Items.Count; i++)
             {
                 if (combo.Items[i] is Vehiculo v && v.Id == valorId)
+                {
+                    combo.SelectedIndex = i;
+                    return;
+                }
+
+                if (combo.Items[i] is Tecnico t && t.id == valorId)
                 {
                     combo.SelectedIndex = i;
                     return;
