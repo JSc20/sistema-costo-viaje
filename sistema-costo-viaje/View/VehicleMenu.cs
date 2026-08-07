@@ -57,6 +57,16 @@ namespace sistema_costo_viaje.View
             ComboBoxVehiculoMantenimiento.DataSource = _vehiculos;
             ComboBoxVehiculoMantenimiento.DisplayMember = nameof(Vehiculo.Modelo);
             ComboBoxVehiculoMantenimiento.ValueMember = nameof(Vehiculo.Id);
+
+            var marcas = vehiculos
+                .Select(v => v.Marca)
+                .Where(m => !string.IsNullOrWhiteSpace(m))
+                .Distinct(StringComparer.OrdinalIgnoreCase)
+                .OrderBy(m => m)
+                .ToList();
+
+            ComboBoxMarcaVehiculo.Items.Clear();
+            ComboBoxMarcaVehiculo.Items.AddRange(marcas.Cast<object>().ToArray());
         }
 
         public void SetVehiculo(Vehiculo vehiculo)
@@ -65,7 +75,7 @@ namespace sistema_costo_viaje.View
             if (vehiculo == null)
                 return;
 
-            TextBoxMarcaVehiculo.Text = vehiculo.Marca;
+            ComboBoxMarcaVehiculo.Text = vehiculo.Marca;
             TextBoxModeloVehiculo.Text = vehiculo.Modelo;
             TextBoxAnioVehiculo.Text = vehiculo.Año.ToString();
             TextBoxCostoPorKmVehiculo.Text = vehiculo.CostoPorKm.ToString();
@@ -305,7 +315,7 @@ namespace sistema_costo_viaje.View
 
         private Vehiculo ConstruirVehiculo()
         {
-            if (string.IsNullOrWhiteSpace(TextBoxMarcaVehiculo.Text))
+            if (string.IsNullOrWhiteSpace(ComboBoxMarcaVehiculo.Text))
                 throw new ArgumentException("La marca del vehículo es requerida");
 
             if (string.IsNullOrWhiteSpace(TextBoxModeloVehiculo.Text))
@@ -334,7 +344,7 @@ namespace sistema_costo_viaje.View
 
             return new Vehiculo
             {
-                Marca = TextBoxMarcaVehiculo.Text.Trim(),
+                Marca = ComboBoxMarcaVehiculo.Text.Trim(),
                 Modelo = TextBoxModeloVehiculo.Text.Trim(),
                 Año = anio,
                 CostoPorKm = costoPorKm,
@@ -431,7 +441,7 @@ namespace sistema_costo_viaje.View
 
         private void LimpiarFormularioVehiculo()
         {
-            TextBoxMarcaVehiculo.Clear();
+            ComboBoxMarcaVehiculo.Text = string.Empty;
             TextBoxModeloVehiculo.Clear();
             TextBoxAnioVehiculo.Clear();
             TextBoxCostoPorKmVehiculo.Clear();
