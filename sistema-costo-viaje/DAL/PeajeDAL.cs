@@ -1,58 +1,94 @@
+using System;
 using System.Collections.Generic;
-using System.Linq;
+using Microsoft.Data.Sqlite;
 using SistemaCostoViaje.EL;
 
 namespace SistemaCostoViaje.DAL
 {
     public class PeajeDAL
     {
-        private static readonly List<Peaje> _peajes = new();
-        private static int _nextId = 1;
+        private const string Columnas = "Id, Nombre, Costo";
 
         public List<Peaje> ObtenerTodos()
         {
-            return _peajes.Select(Clone).ToList();
+            var peajes = new List<Peaje>();
+            using var conexion = SqliteContext.AbrirConexion();
+            using var comando = SqliteContext.CrearComando(conexion, $"SELECT {Columnas} FROM Peajes ORDER BY Id");
+            using var lector = comando.ExecuteReader();
+            while (lector.Read())
+                peajes.Add(Mapear(lector));
+            return peajes;
         }
 
         public Peaje? ObtenerPorId(int id)
         {
-            return Clone(_peajes.FirstOrDefault(p => p.Id == id));
+            using var conexion = SqliteContext.AbrirConexion();
+            using var comando = SqliteContext.CrearComando(conexion, $"SELECT {Columnas} FROM Peajes WHERE Id = $id");
+            comando.Parameters.AddWithValue("$id", id);
+            using var lector = comando.ExecuteReader();
+            return lector.Read() ? Mapear(lector) : null;
         }
 
         public Peaje Crear(Peaje peaje)
         {
-            var nuevoPeaje = Clone(peaje);
-            nuevoPeaje.Id = _nextId++;
-            _peajes.Add(nuevoPeaje);
-            return Clone(nuevoPeaje);
+            using var conexion = SqliteContext.AbrirConexion();
+            using var comando = SqliteContext.CrearComando(conexion, """
+                INSERT INTO Peajes (Nombre, Costo)
+                VALUES ($nombre, $costo)
+                """);
+            AgregarParametros(comando, peaje);
+            comando.ExecuteNonQuery();
+
+            peaje.Id = ObtenerUltimoId(conexion);
+            return Clonar(peaje);
         }
 
         public Peaje? Actualizar(Peaje peaje)
         {
-            var existente = _peajes.FirstOrDefault(p => p.Id == peaje.Id);
-            if (existente == null)
-                return null;
+            using var conexion = SqliteContext.AbrirConexion();
+            using var comando = SqliteContext.CrearComando(conexion, """
+                UPDATE Peajes
+                SET Nombre = $nombre, Costo = $costo
+                WHERE Id = $id
+                """);
+            AgregarParametros(comando, peaje);
+            comando.Parameters.AddWithValue("$id", peaje.Id);
 
-            existente.Nombre = peaje.Nombre;
-            existente.Costo = peaje.Costo;
-
-            return Clone(existente);
+            return comando.ExecuteNonQuery() > 0 ? Clonar(peaje) : null;
         }
 
         public bool Eliminar(int id)
         {
-            var peaje = _peajes.FirstOrDefault(p => p.Id == id);
-            if (peaje == null)
-                return false;
-
-            return _peajes.Remove(peaje);
+            using var conexion = SqliteContext.AbrirConexion();
+            using var comando = SqliteContext.CrearComando(conexion, "DELETE FROM Peajes WHERE Id = $id");
+            comando.Parameters.AddWithValue("$id", id);
+            return comando.ExecuteNonQuery() > 0;
         }
 
-        private static Peaje Clone(Peaje? peaje)
+        private static int ObtenerUltimoId(SqliteConnection conexion)
         {
-            if (peaje == null)
-                return null!;
+            using var comando = SqliteContext.CrearComando(conexion, "SELECT last_insert_rowid()");
+            return Convert.ToInt32(comando.ExecuteScalar());
+        }
 
+        private static void AgregarParametros(SqliteCommand comando, Peaje peaje)
+        {
+            comando.Parameters.AddWithValue("$nombre", peaje.Nombre);
+            comando.Parameters.AddWithValue("$costo", peaje.Costo);
+        }
+
+        private static Peaje Mapear(SqliteDataReader lector)
+        {
+            return new Peaje
+            {
+                Id = lector.GetInt32(0),
+                Nombre = lector.GetString(1),
+                Costo = lector.GetDecimal(2)
+            };
+        }
+
+        private static Peaje Clonar(Peaje peaje)
+        {
             return new Peaje
             {
                 Id = peaje.Id,
