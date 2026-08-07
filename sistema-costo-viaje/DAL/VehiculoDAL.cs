@@ -1,71 +1,110 @@
+using System;
 using System.Collections.Generic;
-using System.Linq;
+using Microsoft.Data.Sqlite;
 using SistemaCostoViaje.EL;
 
 namespace SistemaCostoViaje.DAL
 {
     public class VehiculoDAL
     {
-        private static readonly List<Vehiculo> _vehiculos = new()
-        {
-            new Vehiculo { Id = 1, Marca = "Toyota", Modelo = "Corolla", Año = 2020, CostoPorKm = 0.80m, ValorActual = 8000000, ValorFuturo = 3000000, KmRestantesUso = 100000, KmAnuales = 15000, CostosFijosAnuales = 400000 },
-            new Vehiculo { Id = 2, Marca = "Ford", Modelo = "Ranger", Año = 2019, CostoPorKm = 1.10m, ValorActual = 12000000, ValorFuturo = 5000000, KmRestantesUso = 120000, KmAnuales = 20000, CostosFijosAnuales = 500000 },
-            new Vehiculo { Id = 3, Marca = "Chevrolet", Modelo = "Spark", Año = 2022, CostoPorKm = 0.70m, ValorActual = 6000000, ValorFuturo = 2000000, KmRestantesUso = 90000, KmAnuales = 12000, CostosFijosAnuales = 350000 }
-        };
-
-        private static int _nextId = _vehiculos.Max(v => v.Id) + 1;
+        private const string Columnas =
+            "Id, Marca, Modelo, \"Año\", CostoPorKm, ValorActual, ValorFuturo, KmRestantesUso, KmAnuales, CostosFijosAnuales";
 
         public List<Vehiculo> ObtenerTodos()
         {
-            return _vehiculos.Select(Clone).ToList();
+            var vehiculos = new List<Vehiculo>();
+            using var conexion = SqliteContext.AbrirConexion();
+            using var comando = SqliteContext.CrearComando(conexion, $"SELECT {Columnas} FROM Vehiculos ORDER BY Id");
+            using var lector = comando.ExecuteReader();
+            while (lector.Read())
+                vehiculos.Add(Mapear(lector));
+            return vehiculos;
         }
 
         public Vehiculo? ObtenerPorId(int id)
         {
-            return Clone(_vehiculos.FirstOrDefault(v => v.Id == id));
+            using var conexion = SqliteContext.AbrirConexion();
+            using var comando = SqliteContext.CrearComando(conexion, $"SELECT {Columnas} FROM Vehiculos WHERE Id = $id");
+            comando.Parameters.AddWithValue("$id", id);
+            using var lector = comando.ExecuteReader();
+            return lector.Read() ? Mapear(lector) : null;
         }
 
         public Vehiculo Crear(Vehiculo vehiculo)
         {
-            var nuevoVehiculo = Clone(vehiculo);
-            nuevoVehiculo.Id = _nextId++;
-            _vehiculos.Add(nuevoVehiculo);
-            return Clone(nuevoVehiculo);
+            using var conexion = SqliteContext.AbrirConexion();
+            using var comando = SqliteContext.CrearComando(conexion, """
+                INSERT INTO Vehiculos (Marca, Modelo, "Año", CostoPorKm, ValorActual, ValorFuturo, KmRestantesUso, KmAnuales, CostosFijosAnuales)
+                VALUES ($marca, $modelo, $anio, $costoPorKm, $valorActual, $valorFuturo, $kmRestantesUso, $kmAnuales, $costosFijosAnuales)
+                """);
+            AgregarParametros(comando, vehiculo);
+            comando.ExecuteNonQuery();
+
+            vehiculo.Id = ObtenerUltimoId(conexion);
+            return Clonar(vehiculo);
         }
 
         public Vehiculo? Actualizar(Vehiculo vehiculo)
         {
-            var existente = _vehiculos.FirstOrDefault(v => v.Id == vehiculo.Id);
-            if (existente == null)
-                return null;
+            using var conexion = SqliteContext.AbrirConexion();
+            using var comando = SqliteContext.CrearComando(conexion, """
+                UPDATE Vehiculos
+                SET Marca = $marca, Modelo = $modelo, "Año" = $anio, CostoPorKm = $costoPorKm, ValorActual = $valorActual,
+                    ValorFuturo = $valorFuturo, KmRestantesUso = $kmRestantesUso, KmAnuales = $kmAnuales, CostosFijosAnuales = $costosFijosAnuales
+                WHERE Id = $id
+                """);
+            AgregarParametros(comando, vehiculo);
+            comando.Parameters.AddWithValue("$id", vehiculo.Id);
 
-            existente.Marca = vehiculo.Marca;
-            existente.Modelo = vehiculo.Modelo;
-            existente.Año = vehiculo.Año;
-            existente.CostoPorKm = vehiculo.CostoPorKm;
-            existente.ValorActual = vehiculo.ValorActual;
-            existente.ValorFuturo = vehiculo.ValorFuturo;
-            existente.KmRestantesUso = vehiculo.KmRestantesUso;
-            existente.KmAnuales = vehiculo.KmAnuales;
-            existente.CostosFijosAnuales = vehiculo.CostosFijosAnuales;
-
-            return Clone(existente);
+            return comando.ExecuteNonQuery() > 0 ? Clonar(vehiculo) : null;
         }
 
         public bool Eliminar(int id)
         {
-            var vehiculo = _vehiculos.FirstOrDefault(v => v.Id == id);
-            if (vehiculo == null)
-                return false;
-
-            return _vehiculos.Remove(vehiculo);
+            using var conexion = SqliteContext.AbrirConexion();
+            using var comando = SqliteContext.CrearComando(conexion, "DELETE FROM Vehiculos WHERE Id = $id");
+            comando.Parameters.AddWithValue("$id", id);
+            return comando.ExecuteNonQuery() > 0;
         }
 
-        private static Vehiculo Clone(Vehiculo? vehiculo)
+        private static int ObtenerUltimoId(SqliteConnection conexion)
         {
-            if (vehiculo == null)
-                return null!;
+            using var comando = SqliteContext.CrearComando(conexion, "SELECT last_insert_rowid()");
+            return Convert.ToInt32(comando.ExecuteScalar());
+        }
 
+        private static void AgregarParametros(SqliteCommand comando, Vehiculo vehiculo)
+        {
+            comando.Parameters.AddWithValue("$marca", vehiculo.Marca);
+            comando.Parameters.AddWithValue("$modelo", vehiculo.Modelo);
+            comando.Parameters.AddWithValue("$anio", vehiculo.Año);
+            comando.Parameters.AddWithValue("$costoPorKm", vehiculo.CostoPorKm);
+            comando.Parameters.AddWithValue("$valorActual", vehiculo.ValorActual);
+            comando.Parameters.AddWithValue("$valorFuturo", vehiculo.ValorFuturo);
+            comando.Parameters.AddWithValue("$kmRestantesUso", vehiculo.KmRestantesUso);
+            comando.Parameters.AddWithValue("$kmAnuales", vehiculo.KmAnuales);
+            comando.Parameters.AddWithValue("$costosFijosAnuales", vehiculo.CostosFijosAnuales);
+        }
+
+        private static Vehiculo Mapear(SqliteDataReader lector)
+        {
+            return new Vehiculo
+            {
+                Id = lector.GetInt32(0),
+                Marca = lector.GetString(1),
+                Modelo = lector.GetString(2),
+                Año = lector.GetInt32(3),
+                CostoPorKm = lector.GetDecimal(4),
+                ValorActual = lector.GetDecimal(5),
+                ValorFuturo = lector.GetDecimal(6),
+                KmRestantesUso = lector.GetInt32(7),
+                KmAnuales = lector.GetInt32(8),
+                CostosFijosAnuales = lector.GetDecimal(9)
+            };
+        }
+
+        private static Vehiculo Clonar(Vehiculo vehiculo)
+        {
             return new Vehiculo
             {
                 Id = vehiculo.Id,
