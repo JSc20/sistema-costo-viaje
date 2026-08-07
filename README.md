@@ -2,6 +2,10 @@
 
 Sistema de gestión y cálculo de costos de viaje para Grupo IEXCA S.A.
 
+## Documentación
+
+- [Manual de Usuario](MANUAL_USUARIO.md) — Guía paso a paso para nuevos usuarios.
+
 ## Tecnologías
 
 - **.NET 10** (Windows Forms)

@@ -205,11 +205,63 @@ namespace SistemaCostoViaje.Tests
         }
 
         [Fact]
-        public void CalcularCostoOperacional_DeberiaLanzarNoImplementado()
+        public void DepreciacionPorKm_DeberiaCalcularConDatosValidos()
+        {
+            var vehiculo = CrearVehiculoValido();
+
+            Assert.Equal(50m, vehiculo.DepreciacionPorKm);
+        }
+
+        [Fact]
+        public void DepreciacionPorKm_KmRestantesUsoCero_DeberiaDevolverCero()
+        {
+            var vehiculo = CrearVehiculoValido();
+            vehiculo.KmRestantesUso = 0;
+
+            Assert.Equal(0m, vehiculo.DepreciacionPorKm);
+        }
+
+        [Fact]
+        public void CostoFijoPorKm_DeberiaCalcularConDatosValidos()
+        {
+            var vehiculo = CrearVehiculoValido();
+
+            Assert.Equal(26.67m, Math.Round(vehiculo.CostoFijoPorKm, 2));
+        }
+
+        [Fact]
+        public void CostoFijoPorKm_KmAnualesCero_DeberiaDevolverCero()
+        {
+            var vehiculo = CrearVehiculoValido();
+            vehiculo.KmAnuales = 0;
+
+            Assert.Equal(0m, vehiculo.CostoFijoPorKm);
+        }
+
+        [Fact]
+        public void CalcularCostoOperacional_VehiculoSemilla_DeberiaDevolverCostoPorKm()
         {
             var logica = new VehiculoLogicaNegocio();
 
-            Assert.Throws<NotImplementedException>(() => logica.CalcularCostoOperacional(1));
+            decimal costo = logica.CalcularCostoOperacional(1);
+
+            Assert.Equal(77.47m, costo);
+        }
+
+        [Fact]
+        public void CalcularCostoOperacional_VehiculoInexistente_DeberiaLanzarExcepcion()
+        {
+            var logica = new VehiculoLogicaNegocio();
+
+            Assert.Throws<InvalidOperationException>(() => logica.CalcularCostoOperacional(999999));
+        }
+
+        [Fact]
+        public void CalcularCostoOperacional_IdInvalido_DeberiaLanzarArgumento()
+        {
+            var logica = new VehiculoLogicaNegocio();
+
+            Assert.Throws<ArgumentException>(() => logica.CalcularCostoOperacional(0));
         }
     }
 }

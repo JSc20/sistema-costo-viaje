@@ -30,6 +30,7 @@
         {
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
+            DateTimePickerViajes = new DateTimePicker();
             DateTimePickerViaje = new DateTimePicker();
             BtnGuardarViaje = new Button();
             label9 = new Label();
@@ -59,7 +60,6 @@
             DgvDesglosePrecioTotalGuardados = new DataGridView();
             CheckListBoxViaje = new CheckedListBox();
             label10 = new Label();
-            DateTimePickerViajes = new DateTimePicker();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DgvDesglosePrecioSoloDelCombustible).BeginInit();
@@ -109,6 +109,14 @@
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Crear Viaje";
             tabPage1.Click += tabPage1_Click;
+            // 
+            // DateTimePickerViajes
+            // 
+            DateTimePickerViajes.Format = DateTimePickerFormat.Short;
+            DateTimePickerViajes.Location = new Point(58, 14);
+            DateTimePickerViajes.Name = "DateTimePickerViajes";
+            DateTimePickerViajes.Size = new Size(185, 23);
+            DateTimePickerViajes.TabIndex = 10;
             // 
             // DateTimePickerViaje
             // 
@@ -170,7 +178,7 @@
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(143, 290);
+            textBox1.Location = new Point(143, 328);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(100, 23);
             textBox1.TabIndex = 4;
@@ -207,7 +215,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(11, 290);
+            label7.Location = new Point(11, 328);
             label7.Name = "label7";
             label7.Size = new Size(126, 15);
             label7.TabIndex = 1;
@@ -398,14 +406,6 @@
             label10.Size = new Size(101, 15);
             label10.TabIndex = 0;
             label10.Text = "Viajes registrados:";
-            // 
-            // DateTimePickerViajes
-            // 
-            DateTimePickerViajes.Format = DateTimePickerFormat.Short;
-            DateTimePickerViajes.Location = new Point(58, 14);
-            DateTimePickerViajes.Name = "DateTimePickerViajes";
-            DateTimePickerViajes.Size = new Size(185, 23);
-            DateTimePickerViajes.TabIndex = 10;
             // 
             // JourneyMenu
             // 

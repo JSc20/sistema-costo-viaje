@@ -111,11 +111,15 @@ namespace SistemaCostoViaje.BL
         /// <returns>Costo operacional</returns>
         public decimal CalcularCostoOperacional(int vehiculoId)
         {
-            // TODO: Sugerencia - Obtener datos del vehículo
-            // TODO: Sugerencia - Calcular consumo de combustible
-            // TODO: Sugerencia - Incluir mantenimiento y depreciación
-            // TODO: Sugerencia - Implementar lógica de cálculo
-            throw new NotImplementedException();
+            if (vehiculoId <= 0)
+                throw new ArgumentException("El ID debe ser mayor que cero", nameof(vehiculoId));
+
+            var vehiculo = _vehiculoDAL.ObtenerPorId(vehiculoId);
+            if (vehiculo == null)
+                throw new InvalidOperationException("Vehículo no encontrado");
+
+            return Math.Round(
+                vehiculo.CostoPorKm + vehiculo.DepreciacionPorKm + vehiculo.CostoFijoPorKm, 2);
         }
     }
 }

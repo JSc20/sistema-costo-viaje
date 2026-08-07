@@ -12,4 +12,6 @@ public class Vehiculo
     public int KmRestantesUso { get; set; }
     public int KmAnuales { get; set; }
     public decimal CostosFijosAnuales { get; set; }
+    public decimal DepreciacionPorKm => KmRestantesUso > 0 ? (ValorActual - ValorFuturo) / KmRestantesUso : 0m;
+    public decimal CostoFijoPorKm => KmAnuales > 0 ? CostosFijosAnuales / KmAnuales : 0m;
 }
