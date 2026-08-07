@@ -47,7 +47,7 @@ sistema-costo-viaje/
 | Persistencia a base de datos (SQL Server / SQLite) | ❌ |
 | Formularios de catálogos (Vehículo, Combustible, etc.) | ❌ |
 | Reportes y exportación | ❌ |
-| Pruebas unitarias | ❌ |
+| Pruebas unitarias (xUnit — BL, VL y DAL) | ✅ |
 
 ## Modelo de datos (Roadmap)
 
