@@ -1,12 +1,7 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\jcord\\OneDrive\\Documentos\\Desktop\\REPO\\sistema-costo-viaje\\sistema-costo-viaje\\",
-  "Documents": [
-    {
-      "AbsoluteMoniker": "D:0:0:{728F5FAB-6D78-3EBC-6283-624BC15C1C41}|sistema-costo-viaje.csproj|c:\\users\\jcord\\onedrive\\documentos\\desktop\\repo\\sistema-costo-viaje\\sistema-costo-viaje\\view\\vehiclemenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form",
-      "RelativeMoniker": "D:0:0:{728F5FAB-6D78-3EBC-6283-624BC15C1C41}|sistema-costo-viaje.csproj|solutionrelative:view\\vehiclemenu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
-    }
-  ],
+  "WorkspaceRootPath": "C:\\Users\\jcordero\\Desktop\\REPO\\sistema-costo-viaje\\sistema-costo-viaje\\",
+  "Documents": [],
   "DocumentGroupContainers": [
     {
       "Orientation": 0,
@@ -14,31 +9,11 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": -1,
           "Children": [
             {
               "$type": "Bookmark",
-              "Name": "ST:128:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
-            },
-            {
-              "$type": "Bookmark",
-              "Name": "ST:129:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
-            },
-            {
-              "$type": "Bookmark",
               "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "VehicleMenu.cs [Dise\u00F1o]",
-              "DocumentMoniker": "C:\\Users\\jcord\\OneDrive\\Documentos\\Desktop\\REPO\\sistema-costo-viaje\\sistema-costo-viaje\\View\\VehicleMenu.cs",
-              "RelativeDocumentMoniker": "View\\VehicleMenu.cs",
-              "ToolTip": "C:\\Users\\jcord\\OneDrive\\Documentos\\Desktop\\REPO\\sistema-costo-viaje\\sistema-costo-viaje\\View\\VehicleMenu.cs [Dise\u00F1o]",
-              "RelativeToolTip": "View\\VehicleMenu.cs [Dise\u00F1o]",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-08-06T17:30:10.37Z",
-              "EditorCaption": " [Dise\u00F1o]"
             }
           ]
         }
