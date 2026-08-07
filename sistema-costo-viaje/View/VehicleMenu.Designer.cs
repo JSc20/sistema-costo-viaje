@@ -34,8 +34,6 @@
             BtnGuardarVehículo = new Button();
             DgvListaDeListaVehiculos = new DataGridView();
             label4 = new Label();
-            BtnActivarMantenimientoVehiculo = new Button();
-            BtnActivarMenuRendimientoVehiculo = new Button();
             TextBoxKmActualVehiculo = new TextBox();
             TextBoxModeloVehiculo = new TextBox();
             label3 = new Label();
@@ -68,6 +66,10 @@
             DgvListaMantenimientoVehiculo = new DataGridView();
             CheckListBoxRendimientoVehiculo = new CheckedListBox();
             CheckListBoxMantenimientoVehiculo = new CheckedListBox();
+            label12 = new Label();
+            label13 = new Label();
+            ComboBoxVehiculoRendimiento = new ComboBox();
+            ComboBoxVehiculoMantenimiento = new ComboBox();
             tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DgvListaDeListaVehiculos).BeginInit();
             Vehiculos.SuspendLayout();
@@ -86,8 +88,6 @@
             tabPage1.Controls.Add(BtnGuardarVehículo);
             tabPage1.Controls.Add(DgvListaDeListaVehiculos);
             tabPage1.Controls.Add(label4);
-            tabPage1.Controls.Add(BtnActivarMantenimientoVehiculo);
-            tabPage1.Controls.Add(BtnActivarMenuRendimientoVehiculo);
             tabPage1.Controls.Add(TextBoxKmActualVehiculo);
             tabPage1.Controls.Add(TextBoxModeloVehiculo);
             tabPage1.Controls.Add(label3);
@@ -151,26 +151,6 @@
             label4.Text = "Mantenimiento:";
             label4.Click += label4_Click;
             // 
-            // BtnActivarMantenimientoVehiculo
-            // 
-            BtnActivarMantenimientoVehiculo.Location = new Point(241, 88);
-            BtnActivarMantenimientoVehiculo.Name = "BtnActivarMantenimientoVehiculo";
-            BtnActivarMantenimientoVehiculo.Size = new Size(40, 23);
-            BtnActivarMantenimientoVehiculo.TabIndex = 6;
-            BtnActivarMantenimientoVehiculo.Text = ":::";
-            BtnActivarMantenimientoVehiculo.UseVisualStyleBackColor = true;
-            BtnActivarMantenimientoVehiculo.Click += BtnActivarMantenimientoVehiculo_Click;
-            // 
-            // BtnActivarMenuRendimientoVehiculo
-            // 
-            BtnActivarMenuRendimientoVehiculo.Location = new Point(579, 20);
-            BtnActivarMenuRendimientoVehiculo.Name = "BtnActivarMenuRendimientoVehiculo";
-            BtnActivarMenuRendimientoVehiculo.Size = new Size(40, 23);
-            BtnActivarMenuRendimientoVehiculo.TabIndex = 6;
-            BtnActivarMenuRendimientoVehiculo.Text = ":::";
-            BtnActivarMenuRendimientoVehiculo.UseVisualStyleBackColor = true;
-            BtnActivarMenuRendimientoVehiculo.Click += BtnActivarMenuRendimientoVehiculo_Click;
-            // 
             // TextBoxKmActualVehiculo
             // 
             TextBoxKmActualVehiculo.Location = new Point(116, 59);
@@ -220,7 +200,7 @@
             // Vehiculos
             // 
             Vehiculos.Controls.Add(tabPage1);
-            Vehiculos.Location = new Point(0, 0);
+            Vehiculos.Location = new Point(4, 272);
             Vehiculos.Name = "Vehiculos";
             Vehiculos.SelectedIndex = 0;
             Vehiculos.Size = new Size(661, 333);
@@ -229,6 +209,8 @@
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(ComboBoxVehiculoRendimiento);
+            groupBox1.Controls.Add(label12);
             groupBox1.Controls.Add(TextBoxKmXLitroRendimientoVehiculo);
             groupBox1.Controls.Add(TextBoxTipoEntornoRendimientoVehiculo);
             groupBox1.Controls.Add(TextBoxCostoXKmRendimientoVehiculo);
@@ -239,32 +221,50 @@
             groupBox1.Controls.Add(BtnEditarRendimientoVehiculo);
             groupBox1.Controls.Add(BtnGuardarRendimientoVehiculo);
             groupBox1.Controls.Add(DgvListaRendimientoVehiculo);
-            groupBox1.Location = new Point(4, 353);
+            groupBox1.Location = new Point(4, 4);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(420, 249);
             groupBox1.TabIndex = 10;
             groupBox1.TabStop = false;
             groupBox1.Text = "Rendimiento";
-            groupBox1.Visible = false;
+            groupBox1.Visible = true;
             groupBox1.Enter += groupBox1_Enter;
+            // 
+            // label12
+            // 
+            label12.AutoSize = true;
+            label12.Location = new Point(6, 23);
+            label12.Name = "label12";
+            label12.Size = new Size(51, 15);
+            label12.TabIndex = 11;
+            label12.Text = "Vehículo:";
+            // 
+            // ComboBoxVehiculoRendimiento
+            // 
+            ComboBoxVehiculoRendimiento.DropDownStyle = ComboBoxStyle.DropDownList;
+            ComboBoxVehiculoRendimiento.FormattingEnabled = true;
+            ComboBoxVehiculoRendimiento.Location = new Point(64, 20);
+            ComboBoxVehiculoRendimiento.Name = "ComboBoxVehiculoRendimiento";
+            ComboBoxVehiculoRendimiento.Size = new Size(171, 23);
+            ComboBoxVehiculoRendimiento.TabIndex = 13;
             // 
             // TextBoxKmXLitroRendimientoVehiculo
             // 
-            TextBoxKmXLitroRendimientoVehiculo.Location = new Point(74, 93);
+            TextBoxKmXLitroRendimientoVehiculo.Location = new Point(74, 123);
             TextBoxKmXLitroRendimientoVehiculo.Name = "TextBoxKmXLitroRendimientoVehiculo";
             TextBoxKmXLitroRendimientoVehiculo.Size = new Size(142, 23);
             TextBoxKmXLitroRendimientoVehiculo.TabIndex = 10;
             // 
             // TextBoxTipoEntornoRendimientoVehiculo
             // 
-            TextBoxTipoEntornoRendimientoVehiculo.Location = new Point(93, 22);
+            TextBoxTipoEntornoRendimientoVehiculo.Location = new Point(93, 52);
             TextBoxTipoEntornoRendimientoVehiculo.Name = "TextBoxTipoEntornoRendimientoVehiculo";
             TextBoxTipoEntornoRendimientoVehiculo.Size = new Size(123, 23);
             TextBoxTipoEntornoRendimientoVehiculo.TabIndex = 10;
             // 
             // TextBoxCostoXKmRendimientoVehiculo
             // 
-            TextBoxCostoXKmRendimientoVehiculo.Location = new Point(116, 56);
+            TextBoxCostoXKmRendimientoVehiculo.Location = new Point(116, 86);
             TextBoxCostoXKmRendimientoVehiculo.Name = "TextBoxCostoXKmRendimientoVehiculo";
             TextBoxCostoXKmRendimientoVehiculo.Size = new Size(100, 23);
             TextBoxCostoXKmRendimientoVehiculo.TabIndex = 10;
@@ -272,7 +272,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(6, 56);
+            label7.Location = new Point(6, 86);
             label7.Name = "label7";
             label7.Size = new Size(103, 15);
             label7.TabIndex = 11;
@@ -281,7 +281,7 @@
             // label6
             // 
             label6.AutoSize = true;
-            label6.Location = new Point(8, 93);
+            label6.Location = new Point(8, 123);
             label6.Name = "label6";
             label6.Size = new Size(60, 15);
             label6.TabIndex = 11;
@@ -290,7 +290,7 @@
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new Point(8, 22);
+            label5.Location = new Point(6, 52);
             label5.Name = "label5";
             label5.Size = new Size(79, 15);
             label5.TabIndex = 11;
@@ -337,6 +337,8 @@
             // 
             // groupBox2
             // 
+            groupBox2.Controls.Add(ComboBoxVehiculoMantenimiento);
+            groupBox2.Controls.Add(label13);
             groupBox2.Controls.Add(label11);
             groupBox2.Controls.Add(label10);
             groupBox2.Controls.Add(TextBoxCostoRealXKmMantenimientoVehiculo);
@@ -349,18 +351,36 @@
             groupBox2.Controls.Add(BtnEditarMantenimientoVehiculo);
             groupBox2.Controls.Add(BtnGuardarMantenimientoVehiculo);
             groupBox2.Controls.Add(DgvListaMantenimientoVehiculo);
-            groupBox2.Location = new Point(430, 353);
+            groupBox2.Location = new Point(430, 4);
             groupBox2.Name = "groupBox2";
             groupBox2.Size = new Size(420, 249);
             groupBox2.TabIndex = 10;
             groupBox2.TabStop = false;
             groupBox2.Text = "Mantenimiento";
-            groupBox2.Visible = false;
+            groupBox2.Visible = true;
+            // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.Location = new Point(6, 23);
+            label13.Name = "label13";
+            label13.Size = new Size(51, 15);
+            label13.TabIndex = 12;
+            label13.Text = "Vehículo:";
+            // 
+            // ComboBoxVehiculoMantenimiento
+            // 
+            ComboBoxVehiculoMantenimiento.DropDownStyle = ComboBoxStyle.DropDownList;
+            ComboBoxVehiculoMantenimiento.FormattingEnabled = true;
+            ComboBoxVehiculoMantenimiento.Location = new Point(64, 20);
+            ComboBoxVehiculoMantenimiento.Name = "ComboBoxVehiculoMantenimiento";
+            ComboBoxVehiculoMantenimiento.Size = new Size(174, 23);
+            ComboBoxVehiculoMantenimiento.TabIndex = 13;
             // 
             // label11
             // 
             label11.AutoSize = true;
-            label11.Location = new Point(6, 124);
+            label11.Location = new Point(6, 154);
             label11.Name = "label11";
             label11.Size = new Size(91, 15);
             label11.TabIndex = 12;
@@ -369,7 +389,7 @@
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new Point(6, 93);
+            label10.Location = new Point(6, 123);
             label10.Name = "label10";
             label10.Size = new Size(84, 15);
             label10.TabIndex = 12;
@@ -377,28 +397,28 @@
             // 
             // TextBoxCostoRealXKmMantenimientoVehiculo
             // 
-            TextBoxCostoRealXKmMantenimientoVehiculo.Location = new Point(97, 124);
+            TextBoxCostoRealXKmMantenimientoVehiculo.Location = new Point(97, 154);
             TextBoxCostoRealXKmMantenimientoVehiculo.Name = "TextBoxCostoRealXKmMantenimientoVehiculo";
             TextBoxCostoRealXKmMantenimientoVehiculo.Size = new Size(114, 23);
             TextBoxCostoRealXKmMantenimientoVehiculo.TabIndex = 10;
             // 
             // TextBoxIntervaloXKmMantenimientoVehiculo
             // 
-            TextBoxIntervaloXKmMantenimientoVehiculo.Location = new Point(96, 93);
+            TextBoxIntervaloXKmMantenimientoVehiculo.Location = new Point(96, 123);
             TextBoxIntervaloXKmMantenimientoVehiculo.Name = "TextBoxIntervaloXKmMantenimientoVehiculo";
             TextBoxIntervaloXKmMantenimientoVehiculo.Size = new Size(115, 23);
             TextBoxIntervaloXKmMantenimientoVehiculo.TabIndex = 10;
             // 
             // TextBoxCostoTotalMantenimientoVehiculo
             // 
-            TextBoxCostoTotalMantenimientoVehiculo.Location = new Point(84, 64);
+            TextBoxCostoTotalMantenimientoVehiculo.Location = new Point(84, 94);
             TextBoxCostoTotalMantenimientoVehiculo.Name = "TextBoxCostoTotalMantenimientoVehiculo";
             TextBoxCostoTotalMantenimientoVehiculo.Size = new Size(127, 23);
             TextBoxCostoTotalMantenimientoVehiculo.TabIndex = 10;
             // 
             // TextBoxDescripcionMantenimientoVehiculo
             // 
-            TextBoxDescripcionMantenimientoVehiculo.Location = new Point(84, 30);
+            TextBoxDescripcionMantenimientoVehiculo.Location = new Point(84, 60);
             TextBoxDescripcionMantenimientoVehiculo.Name = "TextBoxDescripcionMantenimientoVehiculo";
             TextBoxDescripcionMantenimientoVehiculo.Size = new Size(127, 23);
             TextBoxDescripcionMantenimientoVehiculo.TabIndex = 10;
@@ -406,7 +426,7 @@
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new Point(6, 64);
+            label9.Location = new Point(6, 94);
             label9.Name = "label9";
             label9.Size = new Size(68, 15);
             label9.TabIndex = 12;
@@ -415,7 +435,7 @@
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new Point(6, 30);
+            label8.Location = new Point(6, 60);
             label8.Name = "label8";
             label8.Size = new Size(72, 15);
             label8.TabIndex = 12;
@@ -511,8 +531,6 @@
         private Button BtnGuardarVehículo;
         private DataGridView DgvListaDeListaVehiculos;
         private Label label4;
-        private Button BtnActivarMantenimientoVehiculo;
-        private Button BtnActivarMenuRendimientoVehiculo;
         private TextBox TextBoxKmActualVehiculo;
         private TextBox TextBoxModeloVehiculo;
         private Label label3;
@@ -546,5 +564,9 @@
         private TextBox TextBoxTipoEntornoRendimientoVehiculo;
         private CheckedListBox CheckListBoxMantenimientoVehiculo;
         private CheckedListBox CheckListBoxRendimientoVehiculo;
+        private Label label12;
+        private Label label13;
+        private ComboBox ComboBoxVehiculoRendimiento;
+        private ComboBox ComboBoxVehiculoMantenimiento;
     }
 }
