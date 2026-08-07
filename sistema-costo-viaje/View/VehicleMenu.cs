@@ -47,6 +47,16 @@ namespace sistema_costo_viaje.View
             DgvListaDeListaVehiculos.DataSource = null;
             DgvListaDeListaVehiculos.DataSource = _vehiculos;
             _vehiculoSeleccionado = _vehiculos.FirstOrDefault();
+
+            ComboBoxVehiculoRendimiento.DataSource = null;
+            ComboBoxVehiculoRendimiento.DataSource = _vehiculos;
+            ComboBoxVehiculoRendimiento.DisplayMember = nameof(Vehiculo.Modelo);
+            ComboBoxVehiculoRendimiento.ValueMember = nameof(Vehiculo.Id);
+
+            ComboBoxVehiculoMantenimiento.DataSource = null;
+            ComboBoxVehiculoMantenimiento.DataSource = _vehiculos;
+            ComboBoxVehiculoMantenimiento.DisplayMember = nameof(Vehiculo.Modelo);
+            ComboBoxVehiculoMantenimiento.ValueMember = nameof(Vehiculo.Id);
         }
 
         public void SetVehiculo(Vehiculo vehiculo)
@@ -55,8 +65,15 @@ namespace sistema_costo_viaje.View
             if (vehiculo == null)
                 return;
 
+            TextBoxMarcaVehiculo.Text = vehiculo.Marca;
             TextBoxModeloVehiculo.Text = vehiculo.Modelo;
+            TextBoxAnioVehiculo.Text = vehiculo.Año.ToString();
+            TextBoxCostoPorKmVehiculo.Text = vehiculo.CostoPorKm.ToString();
+            TextBoxValorActualVehiculo.Text = vehiculo.ValorActual.ToString();
+            TextBoxValorFuturoVehiculo.Text = vehiculo.ValorFuturo.ToString();
             TextBoxKmActualVehiculo.Text = vehiculo.KmRestantesUso.ToString();
+            TextBoxKmAnualesVehiculo.Text = vehiculo.KmAnuales.ToString();
+            TextBoxCostosFijosAnualesVehiculo.Text = vehiculo.CostosFijosAnuales.ToString();
         }
 
         public void SetRendimientos(List<RendimientoVehiculo> rendimientos)
@@ -96,16 +113,6 @@ namespace sistema_costo_viaje.View
             TextBoxCostoTotalMantenimientoVehiculo.Text = mantenimiento.CostoTotal.ToString();
             TextBoxIntervaloXKmMantenimientoVehiculo.Text = mantenimiento.KmIntervalo.ToString();
             TextBoxCostoRealXKmMantenimientoVehiculo.Text = mantenimiento.CostoPorKm.ToString();
-        }
-
-        private void BtnActivarMenuRendimientoVehiculo_Click(object sender, EventArgs e)
-        {
-            groupBox1.Visible = true;
-        }
-
-        private void BtnActivarMantenimientoVehiculo_Click(object sender, EventArgs e)
-        {
-            groupBox2.Visible = true;
         }
 
         private void BtnGuardarVehiculo_Click(object sender, EventArgs e)
@@ -151,7 +158,7 @@ namespace sistema_costo_viaje.View
                     throw new ArgumentException("No hay un vehículo seleccionado para eliminar");
 
                 var confirmacion = MessageBox.Show(
-                    $"¿Desea eliminar el vehículo '{_vehiculoSeleccionado.Modelo}'?",
+                    $"¿Desea eliminar el vehículo '{_vehiculoSeleccionado.Modelo}'? Se eliminarán también sus rendimientos y mantenimientos.",
                     "Eliminar Vehículo",
                     MessageBoxButtons.YesNo,
                     MessageBoxIcon.Question);
@@ -159,7 +166,12 @@ namespace sistema_costo_viaje.View
                 if (confirmacion != DialogResult.Yes)
                     return;
 
-                _vehiculoPresenter.EliminarVehiculo(_vehiculoSeleccionado.Id);
+                var eliminado = _vehiculoPresenter.EliminarVehiculo(_vehiculoSeleccionado.Id);
+                if (!eliminado)
+                    throw new InvalidOperationException("No se encontró el vehículo para eliminar");
+
+                _rendimientoPresenter.ActualizarVista();
+                _mantenimientoPresenter.ActualizarVista();
                 MessageBox.Show("Vehículo eliminado exitosamente.", "Gestión de Vehículos", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 LimpiarFormularioVehiculo();
             }
@@ -293,29 +305,50 @@ namespace sistema_costo_viaje.View
 
         private Vehiculo ConstruirVehiculo()
         {
+            if (string.IsNullOrWhiteSpace(TextBoxMarcaVehiculo.Text))
+                throw new ArgumentException("La marca del vehículo es requerida");
+
             if (string.IsNullOrWhiteSpace(TextBoxModeloVehiculo.Text))
                 throw new ArgumentException("El modelo del vehículo es requerido");
 
-            int kmRestantes = 0;
-            if (!string.IsNullOrWhiteSpace(TextBoxKmActualVehiculo.Text) &&
-                !int.TryParse(TextBoxKmActualVehiculo.Text, out kmRestantes))
-            {
+            if (!int.TryParse(TextBoxAnioVehiculo.Text, out int anio) || anio < 1900 || anio > DateTime.Now.Year + 1)
+                throw new ArgumentException("El año del vehículo no es válido");
+
+            if (!decimal.TryParse(TextBoxCostoPorKmVehiculo.Text, out decimal costoPorKm) || costoPorKm <= 0)
+                throw new ArgumentException("El costo por kilómetro debe ser mayor a 0");
+
+            if (!decimal.TryParse(TextBoxValorActualVehiculo.Text, out decimal valorActual) || valorActual < 0)
+                throw new ArgumentException("El valor actual no es válido");
+
+            if (!decimal.TryParse(TextBoxValorFuturoVehiculo.Text, out decimal valorFuturo) || valorFuturo < 0)
+                throw new ArgumentException("El valor futuro no es válido");
+
+            if (!int.TryParse(TextBoxKmActualVehiculo.Text, out int kmRestantes) || kmRestantes < 0)
                 throw new ArgumentException("El kilometraje actual no es válido");
-            }
+
+            if (!int.TryParse(TextBoxKmAnualesVehiculo.Text, out int kmAnuales) || kmAnuales < 0)
+                throw new ArgumentException("Los kilómetros anuales no son válidos");
+
+            if (!decimal.TryParse(TextBoxCostosFijosAnualesVehiculo.Text, out decimal costosFijosAnuales) || costosFijosAnuales < 0)
+                throw new ArgumentException("Los costos fijos anuales no son válidos");
 
             return new Vehiculo
             {
-                Marca = "Desconocida",
+                Marca = TextBoxMarcaVehiculo.Text.Trim(),
                 Modelo = TextBoxModeloVehiculo.Text.Trim(),
-                Año = DateTime.Now.Year,
-                CostoPorKm = 1m,
-                KmRestantesUso = kmRestantes
+                Año = anio,
+                CostoPorKm = costoPorKm,
+                ValorActual = valorActual,
+                ValorFuturo = valorFuturo,
+                KmRestantesUso = kmRestantes,
+                KmAnuales = kmAnuales,
+                CostosFijosAnuales = costosFijosAnuales
             };
         }
 
         private RendimientoVehiculo ConstruirRendimiento()
         {
-            if (_vehiculoSeleccionado == null)
+            if (ComboBoxVehiculoRendimiento.SelectedItem is not Vehiculo vehiculo)
                 throw new ArgumentException("Seleccione primero un vehículo");
 
             if (string.IsNullOrWhiteSpace(TextBoxTipoEntornoRendimientoVehiculo.Text))
@@ -329,7 +362,7 @@ namespace sistema_costo_viaje.View
 
             return new RendimientoVehiculo
             {
-                vehiculo_id = _vehiculoSeleccionado.Id,
+                vehiculo_id = vehiculo.Id,
                 tipo_combustible_id = 1,
                 tipo_entorno = TextBoxTipoEntornoRendimientoVehiculo.Text.Trim(),
                 costo_por_km = costoPorKm,
@@ -339,7 +372,7 @@ namespace sistema_costo_viaje.View
 
         private MantenimientoVehiculo ConstruirMantenimiento()
         {
-            if (_vehiculoSeleccionado == null)
+            if (ComboBoxVehiculoMantenimiento.SelectedItem is not Vehiculo vehiculo)
                 throw new ArgumentException("Seleccione primero un vehículo");
 
             if (string.IsNullOrWhiteSpace(TextBoxDescripcionMantenimientoVehiculo.Text))
@@ -356,7 +389,7 @@ namespace sistema_costo_viaje.View
 
             return new MantenimientoVehiculo
             {
-                VehiculoId = _vehiculoSeleccionado.Id,
+                VehiculoId = vehiculo.Id,
                 Descripcion = TextBoxDescripcionMantenimientoVehiculo.Text.Trim(),
                 CostoTotal = costoTotal,
                 KmIntervalo = kmIntervalo,
@@ -375,6 +408,9 @@ namespace sistema_costo_viaje.View
             _vehiculoPresenter.ObtenerVehiculoPorId(vehiculo.Id);
             _rendimientoPresenter.ObtenerRendimientosPorVehiculoId(vehiculo.Id);
             _mantenimientoPresenter.ObtenerMantenimientosPorVehiculoId(vehiculo.Id);
+
+            ComboBoxVehiculoRendimiento.SelectedItem = vehiculo;
+            ComboBoxVehiculoMantenimiento.SelectedItem = vehiculo;
         }
 
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
@@ -395,8 +431,15 @@ namespace sistema_costo_viaje.View
 
         private void LimpiarFormularioVehiculo()
         {
+            TextBoxMarcaVehiculo.Clear();
             TextBoxModeloVehiculo.Clear();
+            TextBoxAnioVehiculo.Clear();
+            TextBoxCostoPorKmVehiculo.Clear();
+            TextBoxValorActualVehiculo.Clear();
+            TextBoxValorFuturoVehiculo.Clear();
             TextBoxKmActualVehiculo.Clear();
+            TextBoxKmAnualesVehiculo.Clear();
+            TextBoxCostosFijosAnualesVehiculo.Clear();
         }
 
         private void LimpiarFormularioRendimiento()
@@ -419,22 +462,7 @@ namespace sistema_costo_viaje.View
 
         }
 
-        private void textBox1_TextChanged(object sender, EventArgs e)
-        {
-
-        }
-
         private void label2_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label3_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label4_Click(object sender, EventArgs e)
         {
 
         }
@@ -450,11 +478,6 @@ namespace sistema_costo_viaje.View
         }
 
         private void groupBox1_Enter(object sender, EventArgs e)
-        {
-
-        }
-
-        private void CheckListBoxRendimientoVehiculo_SelectedIndexChanged(object sender, EventArgs e)
         {
 
         }
