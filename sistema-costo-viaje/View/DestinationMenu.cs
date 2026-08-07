@@ -34,7 +34,20 @@ namespace sistema_costo_viaje.View
         public void SetDestinos(List<Destino> destinos)
         {
             _destinos = destinos;
+            DgvListaDeDestinos.DataSource = null;
+            DgvListaDeDestinos.DataSource = _destinos;
             _destinoSeleccionado = _destinos.FirstOrDefault();
+        }
+
+        private void DgvListaDeDestinos_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0 || DgvListaDeDestinos.Rows.Count == 0)
+                return;
+
+            if (DgvListaDeDestinos.CurrentRow?.DataBoundItem is Destino destino)
+            {
+                _presenter.ObtenerDestinoPorId(destino.Id);
+            }
         }
 
         public void SetDestino(Destino destino)

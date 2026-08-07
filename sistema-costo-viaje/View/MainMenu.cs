@@ -66,6 +66,18 @@ namespace sistema_costo_viaje.View
                         formulario.ShowDialog(this);
                     }
                     break;
+                case "button7":
+                    using (var formulario = new DestinationMenu())
+                    {
+                        formulario.ShowDialog(this);
+                    }
+                    break;
+                case "button1":
+                    using (var formulario = new FuelTypeMenu())
+                    {
+                        formulario.ShowDialog(this);
+                    }
+                    break;
             }
         }
     }
