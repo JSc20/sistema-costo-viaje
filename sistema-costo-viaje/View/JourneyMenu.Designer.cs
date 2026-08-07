@@ -30,6 +30,7 @@
         {
             tabControl1 = new TabControl();
             tabPage1 = new TabPage();
+            DateTimePickerViajes = new DateTimePicker();
             DateTimePickerViaje = new DateTimePicker();
             BtnGuardarViaje = new Button();
             label9 = new Label();
@@ -57,7 +58,8 @@
             DgvDesglosePrecioTotalGuardados = new DataGridView();
             CheckListBoxViaje = new CheckedListBox();
             label10 = new Label();
-            DateTimePickerViajes = new DateTimePicker();
+            label6 = new Label();
+            ComboBoxTecnicosDeViaje = new ComboBox();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DgvDesglosePrecioSoloDelCombustible).BeginInit();
@@ -80,6 +82,7 @@
             // tabPage1
             // 
             tabPage1.BackColor = Color.FromArgb(168, 168, 168);
+            tabPage1.Controls.Add(ComboBoxTecnicosDeViaje);
             tabPage1.Controls.Add(DateTimePickerViajes);
             tabPage1.Controls.Add(DateTimePickerViaje);
             tabPage1.Controls.Add(BtnGuardarViaje);
@@ -93,6 +96,7 @@
             tabPage1.Controls.Add(ComboBoxDestinoViaje);
             tabPage1.Controls.Add(label7);
             tabPage1.Controls.Add(ComboBoxVehículoViaje);
+            tabPage1.Controls.Add(label6);
             tabPage1.Controls.Add(label5);
             tabPage1.Controls.Add(label4);
             tabPage1.Controls.Add(label3);
@@ -105,6 +109,14 @@
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Crear Viaje";
             tabPage1.Click += tabPage1_Click;
+            // 
+            // DateTimePickerViajes
+            // 
+            DateTimePickerViajes.Format = DateTimePickerFormat.Short;
+            DateTimePickerViajes.Location = new Point(58, 14);
+            DateTimePickerViajes.Name = "DateTimePickerViajes";
+            DateTimePickerViajes.Size = new Size(185, 23);
+            DateTimePickerViajes.TabIndex = 10;
             // 
             // DateTimePickerViaje
             // 
@@ -166,7 +178,7 @@
             // 
             // textBox1
             // 
-            textBox1.Location = new Point(143, 290);
+            textBox1.Location = new Point(143, 328);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(100, 23);
             textBox1.TabIndex = 4;
@@ -203,7 +215,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new Point(11, 290);
+            label7.Location = new Point(11, 328);
             label7.Name = "label7";
             label7.Size = new Size(126, 15);
             label7.TabIndex = 1;
@@ -377,13 +389,23 @@
             label10.TabIndex = 0;
             label10.Text = "Viajes registrados:";
             // 
-            // DateTimePickerViajes
+            // label6
             // 
-            DateTimePickerViajes.Format = DateTimePickerFormat.Short;
-            DateTimePickerViajes.Location = new Point(58, 14);
-            DateTimePickerViajes.Name = "DateTimePickerViajes";
-            DateTimePickerViajes.Size = new Size(185, 23);
-            DateTimePickerViajes.TabIndex = 10;
+            label6.AutoSize = true;
+            label6.Location = new Point(11, 279);
+            label6.Name = "label6";
+            label6.Size = new Size(51, 15);
+            label6.TabIndex = 1;
+            label6.Text = "Técnico:";
+            label6.Click += label1_Click;
+            // 
+            // ComboBoxTecnicosDeViaje
+            // 
+            ComboBoxTecnicosDeViaje.FormattingEnabled = true;
+            ComboBoxTecnicosDeViaje.Location = new Point(72, 276);
+            ComboBoxTecnicosDeViaje.Name = "ComboBoxTecnicosDeViaje";
+            ComboBoxTecnicosDeViaje.Size = new Size(171, 23);
+            ComboBoxTecnicosDeViaje.TabIndex = 11;
             // 
             // JourneyMenu
             // 
@@ -440,5 +462,7 @@
         private TextBox textBox1;
         private Label label7;
         private DateTimePicker DateTimePickerViajes;
+        private ComboBox ComboBoxTecnicosDeViaje;
+        private Label label6;
     }
 }
