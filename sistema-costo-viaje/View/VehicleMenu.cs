@@ -47,6 +47,16 @@ namespace sistema_costo_viaje.View
             DgvListaDeListaVehiculos.DataSource = null;
             DgvListaDeListaVehiculos.DataSource = _vehiculos;
             _vehiculoSeleccionado = _vehiculos.FirstOrDefault();
+
+            ComboBoxVehiculoRendimiento.DataSource = null;
+            ComboBoxVehiculoRendimiento.DataSource = _vehiculos;
+            ComboBoxVehiculoRendimiento.DisplayMember = nameof(Vehiculo.Modelo);
+            ComboBoxVehiculoRendimiento.ValueMember = nameof(Vehiculo.Id);
+
+            ComboBoxVehiculoMantenimiento.DataSource = null;
+            ComboBoxVehiculoMantenimiento.DataSource = _vehiculos;
+            ComboBoxVehiculoMantenimiento.DisplayMember = nameof(Vehiculo.Modelo);
+            ComboBoxVehiculoMantenimiento.ValueMember = nameof(Vehiculo.Id);
         }
 
         public void SetVehiculo(Vehiculo vehiculo)
@@ -96,16 +106,6 @@ namespace sistema_costo_viaje.View
             TextBoxCostoTotalMantenimientoVehiculo.Text = mantenimiento.CostoTotal.ToString();
             TextBoxIntervaloXKmMantenimientoVehiculo.Text = mantenimiento.KmIntervalo.ToString();
             TextBoxCostoRealXKmMantenimientoVehiculo.Text = mantenimiento.CostoPorKm.ToString();
-        }
-
-        private void BtnActivarMenuRendimientoVehiculo_Click(object sender, EventArgs e)
-        {
-            groupBox1.Visible = true;
-        }
-
-        private void BtnActivarMantenimientoVehiculo_Click(object sender, EventArgs e)
-        {
-            groupBox2.Visible = true;
         }
 
         private void BtnGuardarVehiculo_Click(object sender, EventArgs e)
@@ -315,7 +315,7 @@ namespace sistema_costo_viaje.View
 
         private RendimientoVehiculo ConstruirRendimiento()
         {
-            if (_vehiculoSeleccionado == null)
+            if (ComboBoxVehiculoRendimiento.SelectedItem is not Vehiculo vehiculo)
                 throw new ArgumentException("Seleccione primero un vehículo");
 
             if (string.IsNullOrWhiteSpace(TextBoxTipoEntornoRendimientoVehiculo.Text))
@@ -329,7 +329,7 @@ namespace sistema_costo_viaje.View
 
             return new RendimientoVehiculo
             {
-                vehiculo_id = _vehiculoSeleccionado.Id,
+                vehiculo_id = vehiculo.Id,
                 tipo_combustible_id = 1,
                 tipo_entorno = TextBoxTipoEntornoRendimientoVehiculo.Text.Trim(),
                 costo_por_km = costoPorKm,
@@ -339,7 +339,7 @@ namespace sistema_costo_viaje.View
 
         private MantenimientoVehiculo ConstruirMantenimiento()
         {
-            if (_vehiculoSeleccionado == null)
+            if (ComboBoxVehiculoMantenimiento.SelectedItem is not Vehiculo vehiculo)
                 throw new ArgumentException("Seleccione primero un vehículo");
 
             if (string.IsNullOrWhiteSpace(TextBoxDescripcionMantenimientoVehiculo.Text))
@@ -356,7 +356,7 @@ namespace sistema_costo_viaje.View
 
             return new MantenimientoVehiculo
             {
-                VehiculoId = _vehiculoSeleccionado.Id,
+                VehiculoId = vehiculo.Id,
                 Descripcion = TextBoxDescripcionMantenimientoVehiculo.Text.Trim(),
                 CostoTotal = costoTotal,
                 KmIntervalo = kmIntervalo,
@@ -375,6 +375,9 @@ namespace sistema_costo_viaje.View
             _vehiculoPresenter.ObtenerVehiculoPorId(vehiculo.Id);
             _rendimientoPresenter.ObtenerRendimientosPorVehiculoId(vehiculo.Id);
             _mantenimientoPresenter.ObtenerMantenimientosPorVehiculoId(vehiculo.Id);
+
+            ComboBoxVehiculoRendimiento.SelectedItem = vehiculo;
+            ComboBoxVehiculoMantenimiento.SelectedItem = vehiculo;
         }
 
         private void dataGridView2_CellContentClick(object sender, DataGridViewCellEventArgs e)
