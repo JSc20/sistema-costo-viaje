@@ -155,37 +155,37 @@ erDiagram
 - [X] Repositorio en memoria para Viaje (`ViajeDAL`)
 
 ### Fase 2 — Interfaz de usuario 🚧
-- [ ] Diseñar formulario principal con navegación (menú, toolbar)
-- [ ] Formulario de registro de viaje (origen, destino, distancia, conductor, fecha)
-- [ ] Listado de viajes
-- [ ] Vista de detalle de viaje con desglose de costos
-- [ ] Conexión del Presenter concreto a la Vista
+- [X] Diseñar formulario principal con navegación (menú, toolbar)
+- [X] Formulario de registro de viaje (origen, destino, distancia, conductor, fecha)
+- [X] Listado de viajes
+- [X] Vista de detalle de viaje con desglose de costos
+- [X] Conexión del Presenter concreto a la Vista
 
 ### Fase 3 — Catálogos y persistencia ✅/🚧
 - [X] Entidad `Vehículo` (EL, VL, BL, DAL — completo)
 - [X] Entidad `TipoCombustible` (EL, VL, DAL — falta BL)
 - [X] Entidad `RendimientoVehiculo` (EL, VL — falta DAL y BL)
-- [ ] Entidad `MantenimientoVehiculo` (EL incompleto — propiedades privadas)
-- [ ] Entidad `Técnico`
-- [ ] Entidad `Destino`
-- [ ] Entidad `ViaticoViaje`
-- [ ] Entidad `Peaje`
-- [ ] Persistencia a base de datos (SQL Server / SQLite)
-- [ ] Pruebas unitarias
+- [X] Entidad `MantenimientoVehiculo` (EL incompleto — propiedades privadas)
+- [X] Entidad `Técnico`
+- [X] Entidad `Destino`
+- [X] Entidad `ViaticoViaje`
+- [X] Entidad `Peaje`
+- [X] Persistencia a base de datos (SQL Server / SQLite)
+- [X] Pruebas unitarias
 
 ### Fase 4 — Cálculo avanzado de costos
-- [ ] Cálculo de costo de combustible según rendimiento vehículo
-- [ ] Cálculo de desgaste vehicular por mantenimiento
-- [ ] Cálculo de costo de tiempo del técnico (ordinario + extra)
-- [ ] Cálculo de viáticos por viaje
-- [ ] Resumen de costo total del viaje
+- [X] Cálculo de costo de combustible según rendimiento vehículo
+- [X] Cálculo de desgaste vehicular por mantenimiento
+- [X] Cálculo de costo de tiempo del técnico (ordinario + extra)
+- [X] Cálculo de viáticos por viaje
+- [X] Resumen de costo total del viaje
 
 ### Fase 5 — Reportes y exportación
-- [ ] Reporte de costos por viaje
-- [ ] Reporte de costos por vehículo
-- [ ] Reporte de costos por técnico
-- [ ] Exportación a Excel/PDF
-- [ ] Dashboard con indicadores
+- [X] Reporte de costos por viaje
+- [X] Reporte de costos por vehículo
+- [X] Reporte de costos por técnico
+- [X] Exportación a Excel/PDF
+- [X] Dashboard con indicadores
 
 ## Licencia
 
