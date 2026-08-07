@@ -58,6 +58,7 @@
             BtnEntrarAMenuDeViajes.TabIndex = 3;
             BtnEntrarAMenuDeViajes.Text = "Gestionar viajes";
             BtnEntrarAMenuDeViajes.UseVisualStyleBackColor = true;
+            BtnEntrarAMenuDeViajes.Click += BtnEntrarAMenuDeViajes_Click;
             // 
             // BtnEntrarAMenuDeTecnicos
             // 
@@ -67,6 +68,7 @@
             BtnEntrarAMenuDeTecnicos.TabIndex = 4;
             BtnEntrarAMenuDeTecnicos.Text = "Gestionar técnicos";
             BtnEntrarAMenuDeTecnicos.UseVisualStyleBackColor = true;
+            BtnEntrarAMenuDeTecnicos.Click += BtnEntrarAMenuDeTecnicos_Click;
             // 
             // button3
             // 

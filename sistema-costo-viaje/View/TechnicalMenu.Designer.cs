@@ -54,6 +54,7 @@
             DgvListaDeTenicos.Size = new Size(727, 538);
             DgvListaDeTenicos.TabIndex = 0;
             DgvListaDeTenicos.CellContentClick += dataGridView1_CellContentClick;
+            DgvListaDeTenicos.CellClick += dataGridView1_CellContentClick;
             // 
             // label1
             // 
@@ -161,6 +162,7 @@
             BtnGuardarTecnico.TabIndex = 4;
             BtnGuardarTecnico.Text = "Guardar Técnico";
             BtnGuardarTecnico.UseVisualStyleBackColor = false;
+            BtnGuardarTecnico.Click += BtnGuardarTecnico_Click;
             // 
             // BtnEliminarTecnico
             // 
@@ -171,6 +173,7 @@
             BtnEliminarTecnico.TabIndex = 4;
             BtnEliminarTecnico.Text = "Eliminar Técnico";
             BtnEliminarTecnico.UseVisualStyleBackColor = false;
+            BtnEliminarTecnico.Click += BtnEliminarTecnico_Click;
             // 
             // BtnEditarTecnico
             // 
@@ -181,6 +184,7 @@
             BtnEditarTecnico.TabIndex = 4;
             BtnEditarTecnico.Text = "Editar Técnico";
             BtnEditarTecnico.UseVisualStyleBackColor = false;
+            BtnEditarTecnico.Click += BtnEditarTecnico_Click;
             // 
             // TechnicalMenu
             // 
