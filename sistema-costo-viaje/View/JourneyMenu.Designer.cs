@@ -43,6 +43,8 @@
             ComboBoxDestinoViaje = new ComboBox();
             label7 = new Label();
             ComboBoxVehículoViaje = new ComboBox();
+            label13 = new Label();
+            ComboBoxTecnicoViaje = new ComboBox();
             label5 = new Label();
             label4 = new Label();
             label3 = new Label();
@@ -58,8 +60,6 @@
             DgvDesglosePrecioTotalGuardados = new DataGridView();
             CheckListBoxViaje = new CheckedListBox();
             label10 = new Label();
-            label6 = new Label();
-            ComboBoxTecnicosDeViaje = new ComboBox();
             tabControl1.SuspendLayout();
             tabPage1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)DgvDesglosePrecioSoloDelCombustible).BeginInit();
@@ -82,7 +82,6 @@
             // tabPage1
             // 
             tabPage1.BackColor = Color.FromArgb(168, 168, 168);
-            tabPage1.Controls.Add(ComboBoxTecnicosDeViaje);
             tabPage1.Controls.Add(DateTimePickerViajes);
             tabPage1.Controls.Add(DateTimePickerViaje);
             tabPage1.Controls.Add(BtnGuardarViaje);
@@ -96,7 +95,8 @@
             tabPage1.Controls.Add(ComboBoxDestinoViaje);
             tabPage1.Controls.Add(label7);
             tabPage1.Controls.Add(ComboBoxVehículoViaje);
-            tabPage1.Controls.Add(label6);
+            tabPage1.Controls.Add(label13);
+            tabPage1.Controls.Add(ComboBoxTecnicoViaje);
             tabPage1.Controls.Add(label5);
             tabPage1.Controls.Add(label4);
             tabPage1.Controls.Add(label3);
@@ -221,6 +221,24 @@
             label7.TabIndex = 1;
             label7.Text = "Ferri (Ingrese el costo):";
             label7.Click += label1_Click;
+            // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.Location = new Point(11, 325);
+            label13.Name = "label13";
+            label13.Size = new Size(48, 15);
+            label13.TabIndex = 1;
+            label13.Text = "Técnico:";
+            label13.Click += label1_Click;
+            // 
+            // ComboBoxTecnicoViaje
+            // 
+            ComboBoxTecnicoViaje.FormattingEnabled = true;
+            ComboBoxTecnicoViaje.Location = new Point(72, 322);
+            ComboBoxTecnicoViaje.Name = "ComboBoxTecnicoViaje";
+            ComboBoxTecnicoViaje.Size = new Size(171, 23);
+            ComboBoxTecnicoViaje.TabIndex = 2;
             // 
             // ComboBoxVehículoViaje
             // 
@@ -389,24 +407,6 @@
             label10.TabIndex = 0;
             label10.Text = "Viajes registrados:";
             // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Location = new Point(11, 279);
-            label6.Name = "label6";
-            label6.Size = new Size(51, 15);
-            label6.TabIndex = 1;
-            label6.Text = "Técnico:";
-            label6.Click += label1_Click;
-            // 
-            // ComboBoxTecnicosDeViaje
-            // 
-            ComboBoxTecnicosDeViaje.FormattingEnabled = true;
-            ComboBoxTecnicosDeViaje.Location = new Point(72, 276);
-            ComboBoxTecnicosDeViaje.Name = "ComboBoxTecnicosDeViaje";
-            ComboBoxTecnicosDeViaje.Size = new Size(171, 23);
-            ComboBoxTecnicosDeViaje.TabIndex = 11;
-            // 
             // JourneyMenu
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -462,7 +462,7 @@
         private TextBox textBox1;
         private Label label7;
         private DateTimePicker DateTimePickerViajes;
-        private ComboBox ComboBoxTecnicosDeViaje;
-        private Label label6;
+        private Label label13;
+        private ComboBox ComboBoxTecnicoViaje;
     }
 }

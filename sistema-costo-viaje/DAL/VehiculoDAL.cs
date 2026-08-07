@@ -62,9 +62,33 @@ namespace SistemaCostoViaje.DAL
         public bool Eliminar(int id)
         {
             using var conexion = SqliteContext.AbrirConexion();
-            using var comando = SqliteContext.CrearComando(conexion, "DELETE FROM Vehiculos WHERE Id = $id");
-            comando.Parameters.AddWithValue("$id", id);
-            return comando.ExecuteNonQuery() > 0;
+            using var transaccion = conexion.BeginTransaction();
+            try
+            {
+                using (var comando = SqliteContext.CrearComando(conexion, "DELETE FROM RendimientoVehiculos WHERE vehiculo_id = $id"))
+                {
+                    comando.Parameters.AddWithValue("$id", id);
+                    comando.ExecuteNonQuery();
+                }
+
+                using (var comando = SqliteContext.CrearComando(conexion, "DELETE FROM MantenimientoVehiculos WHERE VehiculoId = $id"))
+                {
+                    comando.Parameters.AddWithValue("$id", id);
+                    comando.ExecuteNonQuery();
+                }
+
+                using var comandoVehiculo = SqliteContext.CrearComando(conexion, "DELETE FROM Vehiculos WHERE Id = $id");
+                comandoVehiculo.Parameters.AddWithValue("$id", id);
+                int eliminados = comandoVehiculo.ExecuteNonQuery();
+
+                transaccion.Commit();
+                return eliminados > 0;
+            }
+            catch
+            {
+                transaccion.Rollback();
+                throw;
+            }
         }
 
         private static int ObtenerUltimoId(SqliteConnection conexion)
