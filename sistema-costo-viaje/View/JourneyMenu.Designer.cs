@@ -123,6 +123,7 @@
             BtnGuardarViaje.TabIndex = 8;
             BtnGuardarViaje.Text = "Guardar viaje";
             BtnGuardarViaje.UseVisualStyleBackColor = false;
+            BtnGuardarViaje.Click += BtnGuardarViaje_Click;
             // 
             // label9
             // 
@@ -197,6 +198,7 @@
             ComboBoxDestinoViaje.Name = "ComboBoxDestinoViaje";
             ComboBoxDestinoViaje.Size = new Size(171, 23);
             ComboBoxDestinoViaje.TabIndex = 2;
+            ComboBoxDestinoViaje.SelectedIndexChanged += comboBox1_SelectedIndexChanged;
             // 
             // label7
             // 
@@ -295,6 +297,7 @@
             BtnEliminarViaje.TabIndex = 3;
             BtnEliminarViaje.Text = "Editar Viaje";
             BtnEliminarViaje.UseVisualStyleBackColor = false;
+            BtnEliminarViaje.Click += BtnEliminarViaje_Click;
             // 
             // BtnEditarViaje
             // 
@@ -305,6 +308,7 @@
             BtnEditarViaje.TabIndex = 3;
             BtnEditarViaje.Text = "Editar Viaje";
             BtnEditarViaje.UseVisualStyleBackColor = false;
+            BtnEditarViaje.Click += BtnEditarViaje_Click;
             // 
             // BtnExportarRegistro
             // 
@@ -315,6 +319,7 @@
             BtnExportarRegistro.TabIndex = 3;
             BtnExportarRegistro.Text = "Exportar Registro";
             BtnExportarRegistro.UseVisualStyleBackColor = false;
+            BtnExportarRegistro.Click += BtnExportarRegistro_Click;
             // 
             // label12
             // 
@@ -388,6 +393,7 @@
             Controls.Add(tabControl1);
             Name = "JourneyMenu";
             Text = "Gestión de Viajes";
+            Load += JourneyMenu_Load;
             tabControl1.ResumeLayout(false);
             tabPage1.ResumeLayout(false);
             tabPage1.PerformLayout();

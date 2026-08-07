@@ -80,6 +80,7 @@
             BtnGuardarCombustible.TabIndex = 4;
             BtnGuardarCombustible.Text = "Guardar Combustible";
             BtnGuardarCombustible.UseVisualStyleBackColor = false;
+            BtnGuardarCombustible.Click += BtnGuardarCombustible_Click;
             // 
             // BtnEditarCombustible
             // 
@@ -90,7 +91,7 @@
             BtnEditarCombustible.TabIndex = 5;
             BtnEditarCombustible.Text = "Editar Combustible";
             BtnEditarCombustible.UseVisualStyleBackColor = false;
-            BtnEditarCombustible.Click += button2_Click;
+            BtnEditarCombustible.Click += BtnEditarCombustible_Click;
             // 
             // BtnEliminarCombustible
             // 
@@ -101,6 +102,7 @@
             BtnEliminarCombustible.TabIndex = 6;
             BtnEliminarCombustible.Text = "Eliminar Combustible";
             BtnEliminarCombustible.UseVisualStyleBackColor = false;
+            BtnEliminarCombustible.Click += BtnEliminarCombustible_Click;
             // 
             // DgvListaDeCombustible
             // 
@@ -109,6 +111,7 @@
             DgvListaDeCombustible.Name = "DgvListaDeCombustible";
             DgvListaDeCombustible.Size = new Size(460, 160);
             DgvListaDeCombustible.TabIndex = 7;
+            DgvListaDeCombustible.CellClick += DgvListaDeCombustible_CellClick;
             // 
             // FuelTypeMenu
             // 
@@ -125,6 +128,7 @@
             Controls.Add(label1);
             Name = "FuelTypeMenu";
             Text = "Gestión de Combustible";
+            Load += FuelTypeMenu_Load;
             ((System.ComponentModel.ISupportInitialize)DgvListaDeCombustible).EndInit();
             ResumeLayout(false);
             PerformLayout();

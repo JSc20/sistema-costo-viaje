@@ -92,6 +92,7 @@
             BtnGuardarDestino.TabIndex = 4;
             BtnGuardarDestino.Text = "Guardar Destino";
             BtnGuardarDestino.UseVisualStyleBackColor = false;
+            BtnGuardarDestino.Click += BtnGuardarDestino_Click;
             // 
             // BtnEditarDestino
             // 
@@ -102,6 +103,7 @@
             BtnEditarDestino.TabIndex = 5;
             BtnEditarDestino.Text = "Editar Destino";
             BtnEditarDestino.UseVisualStyleBackColor = false;
+            BtnEditarDestino.Click += BtnEditarDestino_Click;
             // 
             // BtnEliminarDestino
             // 
@@ -112,6 +114,7 @@
             BtnEliminarDestino.TabIndex = 6;
             BtnEliminarDestino.Text = "Eliminar Destino";
             BtnEliminarDestino.UseVisualStyleBackColor = false;
+            BtnEliminarDestino.Click += BtnEliminarDestino_Click;
             // 
             // TextBoxNombreDestino
             // 
@@ -136,6 +139,7 @@
             Controls.Add(label1);
             Name = "DestinationMenu";
             Text = "DestinationMenu";
+            Load += DestinationMenu_Load;
             ResumeLayout(false);
             PerformLayout();
         }

@@ -49,6 +49,7 @@
             DgvListaDePeajes.Name = "DgvListaDePeajes";
             DgvListaDePeajes.Size = new Size(460, 160);
             DgvListaDePeajes.TabIndex = 0;
+            DgvListaDePeajes.CellClick += DgvListaDePeajes_CellClick;
             // 
             // label1
             // 
@@ -118,6 +119,7 @@
             BtnEliminarPeaje.TabIndex = 4;
             BtnEliminarPeaje.Text = "Eliminar Peaje";
             BtnEliminarPeaje.UseVisualStyleBackColor = false;
+            BtnEliminarPeaje.Click += BtnEliminarPeaje_Click;
             // 
             // BtnGuardarPeaje
             // 
@@ -128,7 +130,7 @@
             BtnGuardarPeaje.TabIndex = 4;
             BtnGuardarPeaje.Text = "Guardar Peaje";
             BtnGuardarPeaje.UseVisualStyleBackColor = false;
-            BtnGuardarPeaje.Click += button5_Click;
+            BtnGuardarPeaje.Click += BtnGuardarPeaje_Click;
             // 
             // BtnEditarPeaje
             // 
@@ -139,6 +141,7 @@
             BtnEditarPeaje.TabIndex = 4;
             BtnEditarPeaje.Text = "Editar Peaje";
             BtnEditarPeaje.UseVisualStyleBackColor = false;
+            BtnEditarPeaje.Click += BtnEditarPeaje_Click;
             // 
             // TollMenu
             // 
